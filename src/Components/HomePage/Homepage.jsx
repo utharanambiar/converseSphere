@@ -1,6 +1,8 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import Navigation from "../Navigation/Navigation";
+import LanguageSelector from "../Navigation/LanguageSelector";
+import HomeSection from "../HomeSection/HomeSection";
 
 function Homepage() {
   return (
@@ -9,10 +11,11 @@ function Homepage() {
         <Navigation/>
       </Grid>
       <Grid item xs={7} lg={6} className="hidden lg:block w-full relative">
-        <p className="text-center">Middle</p>
+          <HomeSection/>
       </Grid>
       <Grid item xs={2} lg={3} className="hidden lg:block w-full relative">
         <p className='text-center'>Right</p>
+        <LanguageSelector />
       </Grid>
     </Grid>
   );
