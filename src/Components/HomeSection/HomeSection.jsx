@@ -8,6 +8,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { useState } from "react";
+import TweetCard from "./TweetCard";
 
 function HomeSection() {
   const [uploadImage, setUploadImage] = useState(false);
@@ -95,6 +96,11 @@ function HomeSection() {
             </form>
           </div>
         </div>
+      </section>
+      <section>
+        {[1, 1, 1].map(() => (
+          <TweetCard />
+        ))}
       </section>
     </div>
   );

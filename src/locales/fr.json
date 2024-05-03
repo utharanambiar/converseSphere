@@ -8,5 +8,7 @@
     "VERIFIED": "Vérifié",
     "PROFILE": "Compte",
     "MORE": "Plus",
-    "WHATS_HAPPENING" : "Qu’est-ce qui se passe"
+    "WHATS_HAPPENING" : "Qu’est-ce qui se passe",
+    "DELETE_TWEET" : "Supprimer",
+    "EDIT_TWEET" : "Modifier"
 }
