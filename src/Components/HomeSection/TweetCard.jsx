@@ -14,7 +14,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import UploadIcon from "@mui/icons-material/Upload";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import { FileUpload } from "@mui/icons-material";
 
 function TweetCard() {
   const navigate = useNavigate();
@@ -62,13 +61,12 @@ function TweetCard() {
         <div className="w-full">
           <div className="flex justify-between items-center">
             <div className="flex cursor-pointer items-center space-x-2">
-              <span className="font-semibold">Uthara Nambiar</span>
+              <span className="font-semibold" onClick={() => navigate(`/profile/${6}`)}>Uthara Nambiar</span>
               <span className="text-gray-600">.</span>
-              <span className="text-gray-600">@utharanambiar</span>
+              <span className="text-gray-600" onClick={() => navigate(`/profile/${6}`)}>@utharanambiar</span>
               <img
                 className="ml-2 w-5 h-5"
                 src={verified}
-                onClick={() => navigate("/home")}
               />
             </div>
             <div>
