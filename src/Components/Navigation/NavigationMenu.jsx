@@ -11,7 +11,7 @@ export const navigationOptions =[
     {
         title: "HOME",
         icon: <HomeRoundedIcon/>,
-        path: '/home'
+        path: '/'
     },
     {
         title: "EXPLORE",
