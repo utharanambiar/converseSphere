@@ -16,10 +16,10 @@ function Navigation() {
         <div className="py-3 cursor-pointer">
           <img src={logo} onClick={() => navigate("/home")} />
         </div>
-        <div className="space-y-6">
+        <div>
           {navigationOptions.map((item) => (
             <div
-              className="cursor-pointer flex space-x-3 items-center"
+              className="cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md"
               key={item?.title}
               onClick={() =>
                 item?.title === "PROFILE"
@@ -27,12 +27,12 @@ function Navigation() {
                   : navigate(item?.path)
               }
             >
-              {item?.icon}
-              <p className="text-l">{t(item?.title)}</p>
+              <span className="ml-2">{item?.icon}</span>
+              <p className="text-l items-center">{t(item?.title)}</p>
             </div>
           ))}
         </div>
-        <div className="pt-6 pb-4">
+        <div className="pt-4 pb-4">
           <Button
             sx={{
               width: "80%",

@@ -4,10 +4,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import { Button } from "@mui/material";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
+import sun from "../../assets/sun.svg";
+import moon from "../../assets/moon.svg";
 
 function TrendingNews() {
+  const [theme, setTheme] = React.useState(false)
   const handleTheme = () => {
-    console.log("changed theme");
+    setTheme(!theme)
+    console.log("changed theme", theme);
   };
   return (
     <>
@@ -21,10 +25,13 @@ function TrendingNews() {
           <div className="absolute top-0 left-0 pl-3 pt-3">
             <SearchIcon className="text-gray-500" />
           </div>
-          <Brightness4Icon
-            className="ml-3 cursor-pointer"
-            onClick={handleTheme}
-          />
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" value="" className="sr-only peer"  onClick={handleTheme}/>
+            <div className="group peer ring-0 bg-[#73C0FC]  rounded-full outline-none duration-300 after:duration-300 w-16 h-8  shadow-md peer-checked:bg-[#183153]  peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-8 peer-hover:after:scale-95">
+              <img src={sun} className="absolute top-1 left-8 stroke-gray-900 w-8 h-6 animate-rotate"/>
+              <img src={moon} className="absolute top-1 left-0 stroke-gray-900 w-8 h-6 animate-tilt"/>
+            </div>
+          </label>
         </div>
         <section className="my-5">
           <h1 className="text-xl font-bold">Get Verified</h1>

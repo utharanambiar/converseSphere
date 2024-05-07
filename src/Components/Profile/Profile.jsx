@@ -6,8 +6,8 @@ import profile from "../../assets/profile.svg";
 import verified from "../../assets/verified.svg";
 import { Button } from "@mui/material";
 import { BusinessCenterSharp } from "@mui/icons-material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 function Profile() {
   const navigate = useNavigate();
@@ -90,6 +90,16 @@ function Profile() {
             <div className="flex items-center text-gray-500">
               <CalendarMonthIcon />
               <p className="ml-2">Joined May 2024</p>
+            </div>
+          </div>
+          <div className="flex items-start space-x-5">
+          <div className="flex items-center space-x-1 font-semibold">
+              <span>30</span>
+              <span className="text-gray-500">Following</span>
+            </div>
+            <div className="flex items-center space-x-1 font-semibold">
+              <span>670</span>
+              <span className="text-gray-500">Followers</span>
             </div>
           </div>
         </div>
