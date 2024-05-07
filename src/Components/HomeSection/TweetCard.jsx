@@ -171,19 +171,19 @@ function TweetCard() {
         </div>
       )}
       {loading && (
-        <div class="relative flex w-full animate-pulse gap-2 mb-5">
-          <div class="h-12 w-12 rounded-full bg-neutral-400/50"></div>
-          <div class="flex-1 mt-2">
+        <div className="relative flex w-full animate-pulse gap-2 mb-5">
+          <div className="h-12 w-12 rounded-full bg-neutral-400/50"></div>
+          <div className="flex-1 mt-2">
             <div className="flex">
-              <div class="mb-1 h-3 w-2/5 rounded-lg bg-neutral-400/50 text-lg mr-5"></div>
-              <div class="h-3 w-[30%] rounded-lg bg-neutral-400/50 text-sm"></div>
+              <div className="mb-1 h-3 w-2/5 rounded-lg bg-neutral-400/50 text-lg mr-5"></div>
+              <div className="h-3 w-[30%] rounded-lg bg-neutral-400/50 text-sm"></div>
             </div>
-            <div class="flex flex-col gap-2 mt-3">
-            <div class="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
-            <div class="bg-neutral-400/50 w-full h-64 animate-pulse rounded-md"></div>
+            <div className="flex flex-col gap-2 mt-3">
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+            <div className="bg-neutral-400/50 w-full h-64 animate-pulse rounded-md"></div>
           </div>
           </div>
         </div>

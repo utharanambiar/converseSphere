@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { navigationOptions } from "./NavigationMenu";
 import logo from "../../assets/converseSphere.svg";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ import profile from "../../assets/profile.svg";
 
 function Navigation() {
   const { t } = useTranslation();
+  const [selected, setSelected] = useState(-1)
 
   const navigate = useNavigate();
   return (
@@ -17,14 +18,17 @@ function Navigation() {
           <img src={logo} onClick={() => navigate("/home")} />
         </div>
         <div>
-          {navigationOptions.map((item) => (
+          {navigationOptions.map((item, index) => (
             <div
-              className="cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md"
+              className={`cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md ${selected === index ? `bg-slate-200` : ``}`}
               key={item?.title}
-              onClick={() =>
+              onClick={() =>{
                 item?.title === "PROFILE"
                   ? navigate(`/profile/${5}`)
                   : navigate(item?.path)
+                  setSelected(index)
+                  console.log(selected)
+              }
               }
             >
               <span className="ml-2">{item?.icon}</span>
