@@ -1,5 +1,5 @@
 import React from "react";
-import LanguageSelector from "../Navigation/LanguageSelector";
+import LanguageSelector from "./LanguageSelector";
 import SearchIcon from "@mui/icons-material/Search";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import { Button } from "@mui/material";
@@ -11,9 +11,6 @@ function TrendingNews() {
   };
   return (
     <>
-      <div className="mt-5 mb-10">
-        <LanguageSelector />
-      </div>
       <div className="py-5 sticky top">
         <div className="relative flex items-center">
           <input
@@ -59,6 +56,9 @@ function TrendingNews() {
             <MoreHoriz />
           </div>
         </section>
+      </div>
+      <div className="mt-5 mb-10 sticky bottom">
+        <LanguageSelector />
       </div>
     </>
   );
