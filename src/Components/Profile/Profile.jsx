@@ -8,9 +8,25 @@ import { Button } from "@mui/material";
 import { BusinessCenterSharp } from "@mui/icons-material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import { Box } from "@mui/material";
+import TweetCard from "../HomeSection/TweetCard";
 
 function Profile() {
+  const [value, setValue] = React.useState("1");
   const navigate = useNavigate();
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    if (newValue == 4) {
+      console.log("likes");
+    } else if (newValue == 1) {
+      console.log("users tweet");
+    }
+  };
 
   const handleBack = () => {
     navigate(-1);
@@ -25,7 +41,7 @@ function Profile() {
   };
   return (
     <div>
-      <section className={`z-50 flex items-center sticky top-0 bg-opacity-95`}>
+      <section className={`z-50 flex items-center sticky top-0 bg-opacity-95 bg-white`}>
         <KeyboardBackspaceIcon
           className="cursor-pointer"
           onClick={handleBack}
@@ -93,7 +109,7 @@ function Profile() {
             </div>
           </div>
           <div className="flex items-start space-x-5">
-          <div className="flex items-center space-x-1 font-semibold">
+            <div className="flex items-center space-x-1 font-semibold">
               <span>30</span>
               <span className="text-gray-500">Following</span>
             </div>
@@ -103,6 +119,31 @@ function Profile() {
             </div>
           </div>
         </div>
+      </section>
+      <section className="py-5">
+        <Box sx={{ width: "100%", typography: "body1" }}>
+          <TabContext value={value}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+              >
+                <Tab label="Tweets" value="1" />
+                <Tab label="Replies" value="2" />
+                <Tab label="Media" value="3" />
+                <Tab label="Likes" value="4" />
+              </TabList>
+            </Box>
+            <TabPanel value="1">
+              {[1, 1, 1, 1].map((item) => (
+                <TweetCard />
+              ))}
+            </TabPanel>
+            <TabPanel value="2">Replies</TabPanel>
+            <TabPanel value="3">Media</TabPanel>
+            <TabPanel value="4">Likes</TabPanel>
+          </TabContext>
+        </Box>
       </section>
     </div>
   );

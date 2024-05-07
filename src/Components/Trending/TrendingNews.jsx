@@ -20,7 +20,7 @@ function TrendingNews() {
           <input
             type="text"
             className="py-3 rounded-full text-gray-500 w-full pl-12"
-            placeholder="Search trending news"
+            placeholder="Search"
           />
           <div className="absolute top-0 left-0 pl-3 pt-3">
             <SearchIcon className="text-gray-500" />
@@ -36,12 +36,19 @@ function TrendingNews() {
         <section className="my-5">
           <h1 className="text-xl font-bold">Get Verified</h1>
           <h1 className="font-bold my-2">Subscribe to unlock new features</h1>
-          <Button
+          {/* <Button
             variant="contained"
             sx={{ padding: "10px", paddingX: "20px", borderRadius: "25px" }}
           >
             Get Verified
-          </Button>
+          </Button> */}
+          <button class="border hover:scale-95 duration-300 relative group cursor-pointer text-sky-50  overflow-hidden h-10 w-[80%] rounded-[25px] bg-sky-200 p-2 flex justify-center items-center font-extrabold">
+            <div class="absolute right-32 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-40 h-40 rounded-full group-hover:scale-150 duration-500 bg-sky-900"></div>
+            <div class="absolute right-2 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-32 h-32 rounded-full group-hover:scale-150  duration-500 bg-sky-800"></div>
+            <div class="absolute -right-12 top-4 group-hover:top-1 group-hover:right-2 z-10 w-24 h-24 rounded-full group-hover:scale-150  duration-500 bg-sky-700"></div>
+            <div class="absolute right-20 -top-4 group-hover:top-1 group-hover:right-2 z-10 w-16 h-16 rounded-full group-hover:scale-150  duration-500 bg-sky-600"></div>
+            <p class="z-10">Get Verified</p>
+          </button>
         </section>
         <section className="mt-7 space-y-5">
           <h1 className="font-bold text-xl py-1">What's trending?</h1>
