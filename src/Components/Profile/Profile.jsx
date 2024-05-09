@@ -14,9 +14,11 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
+import ProfileModal from "./ProfileModal";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
+  const [openProfileModal, setOpenProfileModal] = React.useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
@@ -28,12 +30,17 @@ function Profile() {
     }
   };
 
+  const handleClose = () => {
+    setOpenProfileModal(false);
+  };
+
   const handleBack = () => {
     navigate(-1);
   };
 
   const handleOpenProfileModal = () => {
-    console.log("profile modal opened");
+    setOpenProfileModal(true);
+    console.log("profile modal opened", openProfileModal);
   };
 
   const handleFollowUser = () => {
@@ -41,7 +48,9 @@ function Profile() {
   };
   return (
     <div>
-      <section className={`z-50 flex items-center sticky top-0 bg-opacity-95 bg-white`}>
+      <section
+        className={`z-50 flex items-center sticky top-0 bg-opacity-95 bg-white`}
+      >
         <KeyboardBackspaceIcon
           className="cursor-pointer"
           onClick={handleBack}
@@ -144,6 +153,9 @@ function Profile() {
             <TabPanel value="4">Likes</TabPanel>
           </TabContext>
         </Box>
+      </section>
+      <section>
+        <ProfileModal open={openProfileModal} handleClose={handleClose} />
       </section>
     </div>
   );
