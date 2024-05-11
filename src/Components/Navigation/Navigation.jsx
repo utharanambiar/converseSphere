@@ -15,7 +15,7 @@ function Navigation() {
     <div className="h-screen sticky top-0">
       <div>
         <div className="py-3 cursor-pointer">
-          <img src={logo} onClick={() => navigate("/home")} />
+          <img src={logo} onClick={() => navigate("/")} />
         </div>
         <div>
           {navigationOptions.map((item, index) => (
