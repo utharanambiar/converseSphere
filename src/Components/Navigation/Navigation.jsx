@@ -38,18 +38,6 @@ function Navigation() {
           ))}
         </div>
         <div className="pt-4 pb-4">
-          {/* <Button
-            sx={{
-              width: "80%",
-              borderRadius: "25px",
-              py: "15px",
-              bgcolor: "#1e88e5",
-              height: "40px",
-            }}
-            variant="contained"
-          >
-            Tweet
-          </Button> */}
           <button class="border hover:scale-95 duration-300 relative group cursor-pointer text-sky-50  overflow-hidden h-10 w-[80%] rounded-[25px] bg-sky-200 p-2 flex justify-center items-center font-extrabold">
             <div class="absolute right-32 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-40 h-40 rounded-full group-hover:scale-150 duration-500 bg-sky-900"></div>
             <div class="absolute right-2 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-32 h-32 rounded-full group-hover:scale-150  duration-500 bg-sky-800"></div>

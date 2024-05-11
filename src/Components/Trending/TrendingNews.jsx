@@ -6,11 +6,15 @@ import { Button } from "@mui/material";
 import MoreHoriz from "@mui/icons-material/MoreHoriz";
 import sun from "../../assets/sun.svg";
 import moon from "../../assets/moon.svg";
+import GetVerified from "../Modals/GetVerifiedModal";
 
 function TrendingNews() {
-  const [theme, setTheme] = React.useState(false)
+  const [theme, setTheme] = React.useState(false);
+  const [openVerifiedModal, setOpenVerifiedModal] = React.useState(false);
+  const handleOpenVerifiedModal = () => setOpenVerifiedModal(true);
+  const handleCloseVerifiedModal = () => setOpenVerifiedModal(false);
   const handleTheme = () => {
-    setTheme(!theme)
+    setTheme(!theme);
     console.log("changed theme", theme);
   };
   return (
@@ -26,10 +30,21 @@ function TrendingNews() {
             <SearchIcon className="text-gray-500" />
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" value="" className="sr-only peer"  onClick={handleTheme}/>
+            <input
+              type="checkbox"
+              value=""
+              className="sr-only peer"
+              onClick={handleTheme}
+            />
             <div className="group peer ring-0 bg-[#73C0FC]  rounded-full outline-none duration-300 after:duration-300 w-16 h-8  shadow-md peer-checked:bg-[#183153]  peer-focus:outline-none  after:content-[''] after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 after:flex after:justify-center after:items-center peer-checked:after:translate-x-8 peer-hover:after:scale-95">
-              <img src={sun} className="absolute top-1 left-8 stroke-gray-900 w-8 h-6 animate-rotate"/>
-              <img src={moon} className="absolute top-1 left-0 stroke-gray-900 w-8 h-6 animate-tilt"/>
+              <img
+                src={sun}
+                className="absolute top-1 left-8 stroke-gray-900 w-8 h-6 animate-rotate"
+              />
+              <img
+                src={moon}
+                className="absolute top-1 left-0 stroke-gray-900 w-8 h-6 animate-tilt"
+              />
             </div>
           </label>
         </div>
@@ -47,7 +62,9 @@ function TrendingNews() {
             <div class="absolute right-2 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-32 h-32 rounded-full group-hover:scale-150  duration-500 bg-sky-800"></div>
             <div class="absolute -right-12 top-4 group-hover:top-1 group-hover:right-2 z-10 w-24 h-24 rounded-full group-hover:scale-150  duration-500 bg-sky-700"></div>
             <div class="absolute right-20 -top-4 group-hover:top-1 group-hover:right-2 z-10 w-16 h-16 rounded-full group-hover:scale-150  duration-500 bg-sky-600"></div>
-            <p class="z-10">Get Verified</p>
+            <p class="z-10" onClick={handleOpenVerifiedModal}>
+              Get Verified
+            </p>
           </button>
         </section>
         <section className="mt-7 space-y-5">
@@ -74,6 +91,10 @@ function TrendingNews() {
       <div className="mt-5 mb-10 sticky bottom">
         <LanguageSelector />
       </div>
+      <GetVerified
+        open={openVerifiedModal}
+        handleClose={handleCloseVerifiedModal}
+      />
     </>
   );
 }

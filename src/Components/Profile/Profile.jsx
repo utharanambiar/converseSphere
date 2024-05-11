@@ -14,7 +14,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
-import ProfileModal from "./ProfileModal";
+import ProfileModal from "../Modals/ProfileModal";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
