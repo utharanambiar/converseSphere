@@ -21,14 +21,14 @@ function LanguageSelector() {
       disablePortal
       id="combo-box-demo"
       options={languages}
-      sx={{ width: 200, height: 20 }}
+      sx={{ width: 200, height: 2 }}
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
         localStorage.setItem("lang", JSON.stringify(newValue));
         i18n.changeLanguage(newValue?.code);
       }}
-      renderInput={(params) => <TextField {...params} label="Language" />}
+      renderInput={(params) => <TextField {...params} label="Language" size="small"/>}
     />
   );
 }

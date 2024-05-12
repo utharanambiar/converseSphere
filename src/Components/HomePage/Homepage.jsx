@@ -7,6 +7,7 @@ import Profile from "../Profile/Profile";
 import { Routes, Route } from "react-router-dom";
 import TweetDetails from "../TweetDetails/TweetDetails";
 import MenuIcon from "@mui/icons-material/Menu";
+import More from "../MoreSection/More";
 
 function Homepage() {
   const [showSidebar, setShowSidebar] = React.useState(true);
@@ -32,6 +33,7 @@ function Homepage() {
           <Route path="/" element={<HomeSection />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/tweet/:id" element={<TweetDetails />} />
+          <Route path="/more" element={<More />} />
         </Routes>
       </Grid>
       <Grid item xs={2} lg={3} className="lg:block w-full relative">

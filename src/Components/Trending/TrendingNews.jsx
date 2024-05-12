@@ -29,7 +29,7 @@ function TrendingNews() {
           <div className="absolute top-0 left-0 pl-3 pt-3">
             <SearchIcon className="text-gray-500" />
           </div>
-          <label className="relative inline-flex items-center cursor-pointer">
+          {/* <label className="relative inline-flex items-center cursor-pointer">
             <input
               type="checkbox"
               value=""
@@ -46,17 +46,11 @@ function TrendingNews() {
                 className="absolute top-1 left-0 stroke-gray-900 w-8 h-6 animate-tilt"
               />
             </div>
-          </label>
+          </label> */}
         </div>
         <section className="my-5">
           <h1 className="text-xl font-bold">Get Verified</h1>
           <h1 className="font-bold my-2">Subscribe to unlock new features</h1>
-          {/* <Button
-            variant="contained"
-            sx={{ padding: "10px", paddingX: "20px", borderRadius: "25px" }}
-          >
-            Get Verified
-          </Button> */}
           <button class="border hover:scale-95 duration-300 relative group cursor-pointer text-sky-50  overflow-hidden h-10 w-[80%] rounded-[25px] bg-sky-200 p-2 flex justify-center items-center font-extrabold">
             <div class="absolute right-32 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-40 h-40 rounded-full group-hover:scale-150 duration-500 bg-sky-900"></div>
             <div class="absolute right-2 -top-4  group-hover:top-1 group-hover:right-2 z-10 w-32 h-32 rounded-full group-hover:scale-150  duration-500 bg-sky-800"></div>
@@ -87,9 +81,6 @@ function TrendingNews() {
             <MoreHoriz />
           </div>
         </section>
-      </div>
-      <div className="mt-5 mb-10 sticky bottom">
-        <LanguageSelector />
       </div>
       <GetVerified
         open={openVerifiedModal}
