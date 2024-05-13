@@ -46,12 +46,26 @@ function HomeSection() {
           <Avatar alt="username" src={profile} />
           <div className="w-full">
             <form onSubmit={formik.handleSubmit}>
-              <div>
-                <input
+              <div className="grid
+                  text-sm
+                  after:px-3.5
+                  after:py-2.5
+                  [&>textarea]:text-inherit
+                  after:text-inherit
+                  [&>textarea]:resize-none
+                  [&>textarea]:overflow-hidden
+                  [&>textarea]:[grid-area:1/1/2/2]
+                  after:[grid-area:1/1/2/2]
+                  after:whitespace-pre-wrap
+                  after:invisible
+                  after:content-[attr(data-cloned-val)_'_']
+                  after:border">
+                <textarea
                   type="text"
                   name="content"
                   placeholder={`${t("WHATS_HAPPENING")}`}
-                  className="border-none outline-none text-xl bg-transparent h-100"
+                  rows={2}
+                  className="w-full text-slate-600 border-transparent hover:border-slate-200 appearance-none rounded px-3.5 py-2.5 outline-none"
                   {...formik.getFieldProps("content")}
                 />
                 {formik?.errors?.content && formik?.touched?.content && (

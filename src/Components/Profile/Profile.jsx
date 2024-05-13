@@ -143,7 +143,7 @@ function Profile() {
                 <Tab label="Likes" value="4" />
               </TabList>
             </Box>
-            <TabPanel value="1">
+            <TabPanel value="1" sx={{p: 1.5}}>
               {[1, 1, 1, 1].map((item) => (
                 <TweetCard />
               ))}

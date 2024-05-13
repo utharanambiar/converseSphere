@@ -21,13 +21,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
   bgcolor: "background.paper",
   border: "none",
   boxShadow: 24,
   outline: "none",
   borderRadius: 4,
-  padding: 2
+  padding: 2,
 };
 
 function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
@@ -53,7 +52,7 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
     initialValues: {
       content: "",
       image: "",
-      tweetId: 3
+      tweetId: 3,
     },
     onSubmit: handleSubmit,
     validationSchema,
@@ -65,7 +64,7 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={style} className="w-[350px] lg:w-[400px]">
         <div className="flex space-x-5">
           <Avatar
             className="cursor-pointer"
@@ -136,61 +135,78 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
           </div>
         </div>
         <section className={`mt-10`}>
-            <div className="flex space-x-5">
-              {/* <Avatar alt="username" src={profile} /> */}
-              <div className="w-full">
-                <form onSubmit={formik.handleSubmit}>
+          <div className="flex space-x-5">
+            {/* <Avatar alt="username" src={profile} /> */}
+            <div className="w-full">
+              <form onSubmit={formik.handleSubmit}>
+                <div
+                  className="grid
+                  text-sm
+                  after:px-3.5
+                  after:py-2.5
+                  [&>textarea]:text-inherit
+                  after:text-inherit
+                  [&>textarea]:resize-none
+                  [&>textarea]:overflow-hidden
+                  [&>textarea]:[grid-area:1/1/2/2]
+                  after:[grid-area:1/1/2/2]
+                  after:whitespace-pre-wrap
+                  after:invisible
+                  after:content-[attr(data-cloned-val)_'_']
+                  after:border"
+                >
+                  <textarea
+                    type="text"
+                    name="content"
+                    placeholder={`${t("WHATS_HAPPENING")}`}
+                    className="w-full text-slate-600 border-transparent hover:border-slate-200 appearance-none rounded px-3.5 py-2.5 outline-none"
+                    {...formik.getFieldProps("content")}
+                    rows={3}
+                    onInput="this.parentNode.dataset.clonedVal = this.value"
+                  />
+                  {formik?.errors?.content && formik?.touched?.content && (
+                    <span className="text-red-500">
+                      <br />
+                      {formik?.errors?.content}
+                    </span>
+                  )}
+                  {/* <input type="submit" onClick={() => handleSubmit()} /> */}
+                </div>
+                <div className="flex justify-between items-center mt-5">
+                  <div className="flex space-x-5 items-center">
+                    <label className="flex items-center space-x-2 rounded-md cursor-pointer">
+                      <ImageIcon className="text-[#1d9bf0]" />
+                      <input
+                        type="file"
+                        name="imageFile"
+                        className="hidden"
+                        onChange={handleSelectImage}
+                      />
+                    </label>
+                    <FmdGoodIcon className="text-[#1d9bf0]" />
+                    <TagFacesIcon className="text-[#1d9bf0] cursor-pointer" />
+                  </div>
                   <div>
-                    <input
-                      type="text"
-                      name="content"
-                      placeholder={`${t("WHATS_HAPPENING")}`}
-                      className="border-none outline-none text-xl bg-transparent h-100"
-                      {...formik.getFieldProps("content")}
-                    />
-                    {formik?.errors?.content && formik?.touched?.content && (
-                      <span className="text-red-500">
-                        <br />
-                        {formik?.errors?.content}
-                      </span>
-                    )}
-                    {/* <input type="submit" onClick={() => handleSubmit()} /> */}
+                    <Button
+                      sx={{
+                        width: "80%",
+                        borderRadius: "20px",
+                        py: "8px",
+                        px: "20px",
+                        bgcolor: "#1e88e5",
+                        height: "40px",
+                      }}
+                      variant="contained"
+                      type="submit"
+                    >
+                      Tweet
+                    </Button>
                   </div>
-                  <div className="flex justify-between items-center mt-5">
-                    <div className="flex space-x-5 items-center">
-                      <label className="flex items-center space-x-2 rounded-md cursor-pointer">
-                        <ImageIcon className="text-[#1d9bf0]" />
-                        <input
-                          type="file"
-                          name="imageFile"
-                          className="hidden"
-                          onChange={handleSelectImage}
-                        />
-                      </label>
-                      <FmdGoodIcon className="text-[#1d9bf0]" />
-                      <TagFacesIcon className="text-[#1d9bf0] cursor-pointer" />
-                    </div>
-                    <div>
-                      <Button
-                        sx={{
-                          width: "80%",
-                          borderRadius: "20px",
-                          py: "8px",
-                          px: "20px",
-                          bgcolor: "#1e88e5",
-                          height: "40px",
-                        }}
-                        variant="contained"
-                        type="submit"
-                      >
-                        Tweet
-                      </Button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                </div>
+              </form>
             </div>
-          </section>
+          </div>
+        </section>
       </Box>
     </Modal>
   );

@@ -14,7 +14,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
   bgcolor: "background.paper",
   boxShadow: 24,
   p: 4,
@@ -60,14 +59,14 @@ export default function ProfileModal({ open, handleClose }) {
   });
 
   return (
-    <div className="modal-content absolute bottom-0 bg-white drop-shadow-xl w-full animate-slideDown">
+    <div className="modal-content absolute bottom-0 bg-white drop-shadow-xl lg:w-full animate-slideDown">
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} className="w-[350px] lg:w-[600px]">
           <form onSubmit={formik.handleSubmit}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -103,7 +102,7 @@ export default function ProfileModal({ open, handleClose }) {
                     <Avatar
                       src={profile}
                       sx={{
-                        width: "10rem",
+                        width : "10rem",
                         height: "10rem",
                         border: "4px solid white",
                       }}

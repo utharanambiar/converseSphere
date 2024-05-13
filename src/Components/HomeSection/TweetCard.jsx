@@ -119,7 +119,7 @@ function TweetCard() {
       </Modal>
       {!loading && (
         <div>
-          <div className="flex space-x-5">
+          <div className="flex lg:space-x-5">
             <Avatar
               className="cursor-pointer"
               src={profile}

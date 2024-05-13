@@ -19,7 +19,7 @@ function TrendingNews() {
   };
   return (
     <>
-      <div className="py-5 sticky top">
+      <div className="py-5 sticky top  ml-3 mr-3">
         <div className="relative flex items-center">
           <input
             type="text"
