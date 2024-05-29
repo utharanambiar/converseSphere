@@ -1,4 +1,5 @@
-const { combineReducers, legacy_createStore, applyMiddleware } = require("redux");
+import { combineReducers, legacy_createStore,applyMiddleware } from "redux";
+import { thunk } from 'redux-thunk';
 import { authReducer } from "./Auth/AuthReducer";
 
 const rootReducers = combineReducers({

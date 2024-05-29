@@ -172,7 +172,7 @@ function TweetCard() {
                   </Menu>
                 </div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 mb-14">
                 <div
                   onClick={() => navigate(`/tweet/${3}`)}
                   className="cursor-pointer"
