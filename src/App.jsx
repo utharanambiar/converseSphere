@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/*" element={true ? <Homepage /> : <Authentication />} />
+        <Route path="/*" element={false ? <Homepage /> : <Authentication />} />
         <Route exact path="/verifyotp" element={<OtpVerification />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>

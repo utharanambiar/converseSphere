@@ -21,6 +21,12 @@ module.exports = {
         tilt : 'tilt 5s linear infinite'
       }
     },
+    boxShadow: {
+      '3xl': '-10px -10px 12px #51519875',
+    },
+    fontFamily: {
+      lato: ['"Lato"']
+    }
   },
   plugins: [],
   
