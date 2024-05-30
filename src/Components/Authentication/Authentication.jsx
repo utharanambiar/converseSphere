@@ -4,6 +4,7 @@ import img from "../../assets/converseSphere.svg";
 import { GoogleLogin } from "@react-oauth/google";
 import { Button } from "@mui/material";
 import AuthModal from "../Modals/AuthModal";
+import { Navigate } from "react-router-dom";
 
 function Authentication() {
   const [openAuthModal, setOpenAuthModal] = React.useState(false);

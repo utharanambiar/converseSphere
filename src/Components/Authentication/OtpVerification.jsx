@@ -92,7 +92,7 @@ export default function OtpVerification({ reset, isLoading }) {
           disabled={isLoading}
         />
       ))}
-            {code.length ? <ClearButton /> : <></>}   {" "}
+      {/* <div>      {code.length ? <ClearButton /> : <></>}    </div> */}
     </div>
   );
 }
