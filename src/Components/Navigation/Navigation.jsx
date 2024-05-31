@@ -7,10 +7,12 @@ import { Avatar, Button } from "@mui/material";
 import profile from "../../assets/profile.svg";
 import newTweet from "../../assets/newTweet.svg";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { useSelector, useDispatch } from "react-redux";
 
 function Navigation() {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(-1);
+  const { auth } = useSelector((store) => store);
 
   const navigate = useNavigate();
   return (
@@ -59,9 +61,11 @@ function Navigation() {
           <Avatar alt={profile} />
           <div>
             <span>
-              Uthara Nambiar
+              {auth?.user?.fullName}
               <br />
-              <span className="opacity-70">@utharanambiar</span>
+              <span className="opacity-70">
+                @{auth?.user?.fullName.split(' ').join('_').toLowerCase()}
+              </span>
             </span>
           </div>
         </div>

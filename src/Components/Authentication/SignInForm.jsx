@@ -6,11 +6,10 @@ import * as Yup from "yup";
 import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 import VisibilityOffRoundedIcon from "@mui/icons-material/VisibilityOffRounded";
 import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../Store/Auth/Action";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -18,8 +17,12 @@ const validationSchema = Yup.object().shape({
 });
 
 function SignInForm() {
+  const { auth } = useSelector((store) => store);
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  console.log(auth);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -35,37 +38,51 @@ function SignInForm() {
     validationSchema,
     onSubmit: (values) => {
       console.log("sign in values", values);
+      dispatch(loginUser(values));
+      if (
+        Object.keys(formik.errors).length === 0 &&
+        !auth?.error &&
+        !auth?.loading
+      ) {
+        navigate("/verifyotp");
+      }
     },
   });
+
   return (
-    <form>
+    <form onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
             required
             fullWidth
-            id="outlined-required"
+            id="email"
             label="Email Id"
             type="email"
             variant="outlined"
             size="large"
-            //value={formik?.values?.email}
+            value={formik?.values?.email}
             onChange={formik.handleChange}
-            onSubmit={formik.onSubmit}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControl fullWidth variant="outlined" required>
-            <InputLabel htmlFor="outlined-adornment-password">
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-password"
-              type={showPassword ? "text" : "password"}
-              endAdornment={
+          <TextField
+            required
+            fullWidth
+            id="password"
+            label="Password"
+            type={showPassword ? "text" : "password"}
+            variant="outlined"
+            size="large"
+            defaultValue={formik?.values?.password}
+            onChange={formik.handleChange}
+            // onSubmit={formik.onSubmit}
+            onBlur={formik.handleBlur}
+            InputProps={{
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -80,16 +97,11 @@ function SignInForm() {
                     )}
                   </IconButton>
                 </InputAdornment>
-              }
-              label="Password"
-              //value={formik?.values?.email}
-              onChange={formik.handleChange}
-              onSubmit={formik.onSubmit}
-              onBlur={formik.handleBlur}
-              error={formik.touched.password && Boolean(formik.errors.password)}
-              helperText={formik.touched.password && formik.errors.password}
-            />
-          </FormControl>
+              ),
+            }}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
         </Grid>
         <Grid item xs={12} className="mt-20">
           <Button
@@ -98,7 +110,7 @@ function SignInForm() {
             fullWidth
             variant="contained"
             size="large"
-            onClick={()=>navigate('/verifyotp')}
+            //onClick={()=>navigate('/verifyotp')}
           >
             Sign In
           </Button>

@@ -37,9 +37,11 @@ export default function AuthModal({ open, handleClose }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} className="w-[80vw] md:w-[60vw]">
+        <Box sx={style} className="w-[80vw] md:w-[60vw] overflow-y-auto max-h-[90vh] hideScrollBar">
           <h1 className="text-center font-lato font-bold text-3xl pb-20">
-            Create your account
+          {location?.pathname === "/signup"
+              ? "Create an account"
+              : "Login"}
           </h1>
           {location?.pathname === "/signup" ? <SignUpForm /> : <SignInForm />}
           <h1 className="text-center py-5 font-lato font-semibold text-lg text-gray-500">

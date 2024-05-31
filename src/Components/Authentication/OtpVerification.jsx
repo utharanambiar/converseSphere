@@ -92,6 +92,9 @@ export default function OtpVerification({ reset, isLoading }) {
           disabled={isLoading}
         />
       ))}
+      <button>
+        Submit
+      </button>
       {/* <div>      {code.length ? <ClearButton /> : <></>}    </div> */}
     </div>
   );

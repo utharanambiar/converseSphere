@@ -65,6 +65,7 @@ function Authentication() {
                 variant="contained"
                 size="large"
                 sx={{ borderRadius: "30px", py: "7px", marginBottom: "20px" }}
+                onClick={handleOpen}
               >
                 Login
               </Button>
