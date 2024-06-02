@@ -5,9 +5,12 @@ import {
   LOGIN_USER_FAILIURE,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
+  LOGOUT,
   REGISTER_USER_FAILIURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
+  OTP_VERIFICATION_FAILIURE,
+  OTP_VERIFICATION_SUCCESS,
 } from "./ActionType";
 
 const initialState = {
@@ -15,6 +18,7 @@ const initialState = {
   loading: false,
   error: null,
   jwt: null,
+  verified: false,
 };
 export const authReducer = (state = initialState, action) => {
   switch (action?.type) {
@@ -26,9 +30,10 @@ export const authReducer = (state = initialState, action) => {
     case LOGIN_USER_SUCCESS:
       return {
         ...state,
+        user: action?.payload?.userDetails,
         loading: false,
         error: null,
-        jwt: action?.payload?.jwt,
+        jwt: action?.payload?.data?.jwt,
       };
 
     case REGISTER_USER_SUCCESS:
@@ -47,13 +52,26 @@ export const authReducer = (state = initialState, action) => {
         user: action?.payload,
       };
 
+    case OTP_VERIFICATION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        verified: true,
+      };
+
+    case LOGOUT:
+      return initialState;
+
     case REGISTER_USER_FAILIURE:
     case LOGIN_USER_FAILIURE:
     case GET_USER_PROFILE_FAILIURE:
+    case OTP_VERIFICATION_FAILIURE:
       return {
         ...state,
         loading: false,
         error: action?.payload,
+        verified: false,
       };
 
     default:

@@ -1,7 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
-//import { FaTimes } from 'react-icons/fa'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { verifyOtp } from "../../Store/Auth/Action";
+
 export default function OtpVerification({ reset, isLoading }) {
   const [code, setCode] = useState(""); // Refs to control each digit input element
+  const { auth } = useSelector((store) => store);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const inputRefs = [
     useRef(null),
     useRef(null),
@@ -71,6 +77,17 @@ export default function OtpVerification({ reset, isLoading }) {
       </button>
     );
   };
+
+  const handleSubmit = () => {
+    const verifyOtpDetails = { email: auth?.user?.email, otp: code };
+    dispatch(verifyOtp(verifyOtpDetails));
+  };
+
+  useEffect(() => {
+    if (auth?.verified && auth?.jwt) {
+      navigate("/");
+    }
+  }, [auth?.verified]);
   return (
     <div className="flex gap-2 relative h-[100vh] justify-center items-center">
            {" "}
@@ -92,9 +109,7 @@ export default function OtpVerification({ reset, isLoading }) {
           disabled={isLoading}
         />
       ))}
-      <button>
-        Submit
-      </button>
+      <button onClick={handleSubmit}>Submit</button>
       {/* <div>      {code.length ? <ClearButton /> : <></>}    </div> */}
     </div>
   );

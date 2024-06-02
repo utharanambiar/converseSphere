@@ -10,7 +10,6 @@ function TweetDetails() {
 
   const handleBack = () => {
     navigate(-1);
-    console.log(location?.state)
   };
   return (
     <React.Fragment>

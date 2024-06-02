@@ -7,14 +7,21 @@ import { Avatar, Button } from "@mui/material";
 import profile from "../../assets/profile.svg";
 import newTweet from "../../assets/newTweet.svg";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import IconButton from "@mui/material/IconButton";
+import { logoutUser } from "../../Store/Auth/Action";
 
 function Navigation() {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(-1);
   const { auth } = useSelector((store) => store);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logoutUser());
+  };
   return (
     <>
       <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden">
@@ -34,7 +41,6 @@ function Navigation() {
                     ? navigate(`/profile/${5}`)
                     : navigate(item?.path);
                   setSelected(index);
-                  console.log(selected);
                 }}
               >
                 <span className="ml-2">{item?.icon}</span>
@@ -56,7 +62,7 @@ function Navigation() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between fixed bottom-0 backdrop-blur-md w-screen p-2">
+      <div className="block md:flex items-center justify-between fixed bottom-0 backdrop-blur-md w-screen p-2">
         <div className="flex items-center space-x-3">
           <Avatar alt={profile} />
           <div>
@@ -64,10 +70,17 @@ function Navigation() {
               {auth?.user?.fullName}
               <br />
               <span className="opacity-70">
-                @{auth?.user?.fullName.split(' ').join('_').toLowerCase()}
+                @{auth?.user?.fullName?.split(" ").join("_").toLowerCase()}
               </span>
             </span>
           </div>
+          <IconButton
+            className="ml-[35px] text-black font-black cursor-pointer"
+            size="large"
+            onClick={() => handleLogout}
+          >
+            <LogoutRoundedIcon onClick={handleLogout} />
+          </IconButton>
         </div>
       </div>
     </>

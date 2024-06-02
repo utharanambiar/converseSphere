@@ -4,12 +4,13 @@ import img from "../../assets/converseSphere.svg";
 import { GoogleLogin } from "@react-oauth/google";
 import { Button } from "@mui/material";
 import AuthModal from "../Modals/AuthModal";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Authentication() {
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
   const handleOpen = () => setOpenAuthModal(true);
   const handleClose = () => setOpenAuthModal(false);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -49,7 +50,10 @@ function Authentication() {
                 variant="contained"
                 size="large"
                 sx={{ borderRadius: "30px", py: "7px" }}
-                onClick={handleOpen}
+                onClick={() => {
+                  handleOpen();
+                  navigate("/signup");
+                }}
               >
                 Create account
               </Button>
@@ -65,7 +69,10 @@ function Authentication() {
                 variant="contained"
                 size="large"
                 sx={{ borderRadius: "30px", py: "7px", marginBottom: "20px" }}
-                onClick={handleOpen}
+                onClick={() => {
+                  handleOpen();
+                  navigate("/signin");
+                }}
               >
                 Login
               </Button>

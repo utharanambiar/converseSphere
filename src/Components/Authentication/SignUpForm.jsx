@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { registerUser } from "../../Store/Auth/Action";
+import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = Yup.object()
   .shape({
@@ -48,7 +49,9 @@ function SignUpForm() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
   const [verifiedUser, setVerified] = useState(false);
+  const { auth } = useSelector((store) => store);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -82,13 +85,15 @@ function SignUpForm() {
       values.dateOfBirth = dateOfBirth;
       console.log("sign up values", values);
       dispatch(registerUser(values));
-      if (Object.keys(formik.errors).length === 0) {
-        setVerified(true);
+      if (
+        Object.keys(formik.errors).length === 0 &&
+        !auth?.error &&
+        !auth?.loading
+      ) {
+        navigate("/verifyotp");
       }
     },
   });
-
-  console.log(Object.keys(formik.errors).length);
 
   const handleDateChange = (name) => (event) => {
     formik.setFieldValue("dateOfBirth", {
