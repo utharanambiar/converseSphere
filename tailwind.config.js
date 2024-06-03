@@ -23,6 +23,7 @@ module.exports = {
     },
     boxShadow: {
       '3xl': '-10px -10px 12px #51519875',
+      'all' : '0px 0px 10px 10px #9898a175'
     },
     fontFamily: {
       lato: ['"Lato"']

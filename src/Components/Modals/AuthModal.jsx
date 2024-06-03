@@ -42,24 +42,20 @@ export default function AuthModal({ open, handleClose }) {
           className="w-[80vw] md:w-[60vw] overflow-y-auto max-h-[90vh] hideScrollBar"
         >
           <h1 className="text-center font-lato font-bold text-3xl pb-20">
-            {location?.pathname === "/signup" ? "Create an account" : "Login"}
+            {location?.pathname === "/signup" ? "Create an account" : "Sign in to our platform"}
           </h1>
           {location?.pathname === "/signup" ? <SignUpForm /> : <SignInForm />}
-          <h1 className="text-center py-5 font-lato font-semibold text-lg text-gray-500">
+          <div class="text-sm font-medium text-gray-500 dark:text-gray-300 font-lato mt-3">
             {location?.pathname === "/signup"
               ? "Already have an account?"
               : "If you don't have an account"}
-          </h1>
-          <Button
-            sx={{ borderRadius: "30px", py: "15px" }}
-            type="submit"
-            fullWidth
-            variant="outlined"
-            size="large"
-            onClick={handleNavigate}
-          >
-            {location?.pathname === "/signup" ? "Sign In" : "Sign up"}
-          </Button>
+            <button
+              onClick={handleNavigate}
+              class="text-blue-700 hover:underline dark:text-blue-500 font-lato ml-2"
+            >
+              {location?.pathname === "/signup" ? "Sign In" : "Sign up"}
+            </button>
+          </div>
         </Box>
       </Modal>
     </div>
