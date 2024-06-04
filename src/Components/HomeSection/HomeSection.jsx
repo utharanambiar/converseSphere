@@ -43,9 +43,9 @@ function HomeSection() {
 
   useEffect(() => {
     dispatch(getAllTweets());
-  }, [tweet.like]);
+  }, [tweet.like, tweet?.retweet]);
 
-  console.log("tweet", tweet)
+  console.log("tweet", tweet);
 
   return (
     <div className="space-y-5">
@@ -126,7 +126,7 @@ function HomeSection() {
       </section>
       <section>
         {tweet?.tweets?.map((item) => (
-          <TweetCard tweetData={item}/>
+          <TweetCard tweetData={item} />
         ))}
       </section>
     </div>

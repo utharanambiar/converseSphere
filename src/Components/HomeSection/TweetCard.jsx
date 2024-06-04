@@ -17,7 +17,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Modal from "@mui/material/Modal";
 import ReplyModal from "../Modals/ReplyModal";
 import { useDispatch } from "react-redux";
-import { likeTweet } from "../../Store/Tweet/Action";
+import { createReTweet, likeTweet } from "../../Store/Tweet/Action";
 
 const style = {
   position: "absolute",
@@ -62,9 +62,7 @@ const TweetCard = ({ tweetData }) => {
     if (daysDifference != 0) {
       return `${daysDifference} d ago`;
     } else if (hoursDifference != 0) {
-      return `${hoursDifference} ${
-        hoursDifference == 1 ? "hr" : "hrs"
-      } ago`;
+      return `${hoursDifference} ${hoursDifference == 1 ? "hr" : "hrs"} ago`;
     } else if (minutesDifference != 0) {
       return `${minutesDifference} ${
         minutesDifference == 1 ? "min" : "mins"
@@ -92,13 +90,14 @@ const TweetCard = ({ tweetData }) => {
     handleClose();
   };
 
-  const handleRetweet = () => {
+  const handleRetweet = (tweetId) => {
+    dispatch(createReTweet(tweetId));
     console.log("handleRetweet");
   };
 
   const handleLike = (value) => {
     console.log(value);
-    console.log(tweetData)
+    console.log(tweetData);
     dispatch(likeTweet(Number(tweetData?.id)));
     setLike(!value);
   };
@@ -242,7 +241,7 @@ const TweetCard = ({ tweetData }) => {
                     } space-x-0 flex items-center`}
                   >
                     <RepeatIcon
-                      onClick={() => handleRetweet}
+                      onClick={()=>handleRetweet(tweetData?.id)}
                       className="cursor-pointer"
                     />
                     <p>{tweetData?.totalRetweets}</p>
