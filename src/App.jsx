@@ -14,23 +14,31 @@ function App() {
   const jwt = localStorage.getItem("AuthToken");
   const dispatch = useDispatch();
   console.log(auth);
+
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getUserProfile(jwt));
+      navigate("/");
+    }
+  }, [])
+  
   useEffect(() => {
     if (jwt && auth?.verified) {
       dispatch(getUserProfile(jwt));
       navigate("/");
     }
-  }, [auth?.jwt]);
+  }, [auth?.jwt, jwt]);
   return (
-    <>
+    <div className="overflow-x-hidden">
       <Routes>
         <Route
           path="/*"
-          element={auth?.user ? <Homepage /> : <Authentication />}
+          element={jwt ? <Homepage /> : <Authentication />}
         />
         <Route exact path="/verifyotp" element={<OtpVerification />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

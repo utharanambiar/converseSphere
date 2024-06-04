@@ -16,6 +16,8 @@ import UploadIcon from "@mui/icons-material/Upload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Modal from "@mui/material/Modal";
 import ReplyModal from "../Modals/ReplyModal";
+import { useDispatch } from "react-redux";
+import { likeTweet } from "../../Store/Tweet/Action";
 
 const style = {
   position: "absolute",
@@ -29,10 +31,10 @@ const style = {
   p: 4,
 };
 
-function TweetCard() {
+const TweetCard = ({ tweetData }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [like, setLike] = React.useState(false);
+  const [like, setLike] = React.useState(tweetData?.liked || false);
   const [loading, setLoading] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -42,6 +44,34 @@ function TweetCard() {
   const handleCloseReplyModal = () => setOpenReplyModal(false);
   const open = Boolean(anchorEl);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  let date1 = new Date();
+
+  const findTimeDifference = (date2) => {
+    var difference = date1.getTime() - date2.getTime();
+
+    var daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+    difference -= daysDifference * 1000 * 60 * 60 * 24;
+
+    var hoursDifference = Math.floor(difference / 1000 / 60 / 60);
+    difference -= hoursDifference * 1000 * 60 * 60;
+
+    var minutesDifference = Math.floor(difference / 1000 / 60);
+    difference -= minutesDifference * 1000 * 60;
+
+    if (daysDifference != 0) {
+      return `${daysDifference} d ago`;
+    } else if (hoursDifference != 0) {
+      return `${hoursDifference} ${
+        hoursDifference == 1 ? "hr" : "hrs"
+      } ago`;
+    } else if (minutesDifference != 0) {
+      return `${minutesDifference} ${
+        minutesDifference == 1 ? "min" : "mins"
+      } ago`;
+    }
+    return `<1 min ago`;
+  };
 
   const handleModalClose = () => setOpen(false);
 
@@ -68,6 +98,8 @@ function TweetCard() {
 
   const handleLike = (value) => {
     console.log(value);
+    console.log(tweetData)
+    dispatch(likeTweet(Number(tweetData?.id)));
     setLike(!value);
   };
   return (
@@ -122,7 +154,7 @@ function TweetCard() {
           <div className="flex lg:space-x-5">
             <Avatar
               className="cursor-pointer"
-              src={profile}
+              src={tweetData?.img || profile}
               alt="username"
               onClick={() => navigate(`/profile/${6}`)}
             />
@@ -130,17 +162,26 @@ function TweetCard() {
               <div className="flex justify-between items-center">
                 <div className="flex cursor-pointer items-center space-x-2">
                   <span
-                    className="font-semibold"
+                    className="font-semibold hidden md:block"
                     onClick={() => navigate(`/profile/${6}`)}
                   >
-                    Uthara Nambiar
+                    {tweetData?.user?.fullName || "Dummy account"}
                   </span>
-                  <span className="text-gray-600">.</span>
+                  <span className="text-gray-600 hidden md:block">.</span>
                   <span
                     className="text-gray-600"
                     onClick={() => navigate(`/profile/${6}`)}
                   >
-                    @utharanambiar
+                    @
+                    {tweetData?.user?.fullName
+                      ?.split(" ")
+                      .join("_")
+                      .toLowerCase() || "Dummy account"}
+                  </span>
+                  <span className="text-gray-600">.</span>
+                  <span className="text-gray-600">
+                    {/* @{currTime - tweetData?.createdAt} */}
+                    {findTimeDifference(new Date(tweetData?.createdAt))}
                   </span>
                   <img className="ml-2 w-5 h-5" src={verified} />
                 </div>
@@ -177,13 +218,13 @@ function TweetCard() {
                   onClick={() => navigate(`/tweet/${3}`)}
                   className="cursor-pointer"
                 >
-                  <p className="mb-2 p-0">
-                    Twitter clone project for resume. Spring + react + sql{" "}
-                  </p>
-                  <img
-                    className="w-[28rem] border border-gray-400 p-5 rounded-md"
-                    src={verified}
-                  />
+                  <p className="mb-2 p-0">{tweetData?.content}</p>
+                  {tweetData?.img && (
+                    <img
+                      className="w-[28rem] border border-gray-400 p-5 rounded-md"
+                      src={tweetData?.img}
+                    />
+                  )}
                 </div>
                 <div className="py-5 flex flex-wrap justify-between items-center">
                   <div className="space-x-3 flex items-center text-gray-600">
@@ -191,25 +232,26 @@ function TweetCard() {
                       className="cursor-pointer"
                       onClick={handleOpenReplyModal}
                     />
-                    <p>57</p>
+                    <p>{tweetData?.totalReplies}</p>
                   </div>
                   <div
                     className={`${
-                      true ? "text-pink-600" : "text-gray-600"
+                      tweetData?.totalRetweets
+                        ? "text-pink-600"
+                        : "text-gray-600"
                     } space-x-0 flex items-center`}
                   >
                     <RepeatIcon
                       onClick={() => handleRetweet}
                       className="cursor-pointer"
                     />
-                    <p>43</p>
+                    <p>{tweetData?.totalRetweets}</p>
                   </div>
                   <div
                     className={`${
-                      like ? "text-pink-600" : "text-gray-600"
+                      tweetData?.liked ? "text-pink-600" : "text-gray-600"
                     } space-x-0 flex items-center`}
                   >
-                    {/* <FavoriteIcon onClick={()=>handleRetweet} className="cursor-pointer"/> */}
                     {like ? (
                       <FavoriteIcon
                         className="cursor-pointer"
@@ -221,7 +263,7 @@ function TweetCard() {
                         onClick={() => handleLike(false)}
                       />
                     )}
-                    <p>43</p>
+                    <p>{tweetData?.totalLikes}</p>
                   </div>
                   <div className="space-x-3 flex items-center text-gray-600">
                     <BarChartIcon
@@ -238,10 +280,10 @@ function TweetCard() {
                   </div>
                 </div>
                 <section>
-                <ReplyModal
-                  openReplyModal={openReplyModal}
-                  handleCloseReplyModal={handleCloseReplyModal}
-                />
+                  <ReplyModal
+                    openReplyModal={openReplyModal}
+                    handleCloseReplyModal={handleCloseReplyModal}
+                  />
                 </section>
               </div>
             </div>
@@ -268,6 +310,6 @@ function TweetCard() {
       )}
     </React.Fragment>
   );
-}
+};
 
 export default TweetCard;

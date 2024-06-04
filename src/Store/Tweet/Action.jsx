@@ -22,7 +22,7 @@ import {
 
 export const getAllTweets = () => async (dispatch) => {
   try {
-    const { data } = await api.get("/api/tweet");
+    const { data } = await api.get("/api/tweet/");
     console.log("get all tweets:", data);
     dispatch({ type: GET_ALL_TWEETS_SUCCESS, payload: data });
   } catch (e) {
@@ -118,4 +118,3 @@ export const deleteTweet = (tweetId) => async (dispatch) => {
     dispatch({ type: TWEET_DELETE_FAILIURE, payload: e?.message });
   }
 };
-

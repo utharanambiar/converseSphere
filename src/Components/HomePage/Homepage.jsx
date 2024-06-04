@@ -16,30 +16,46 @@ function Homepage() {
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
+
+  const handleOutsideClick = () => {
+    setShowSidebar(false);
+  };
   return (
-    <div className="flex w-[95vw] lg:ml-5 lg:mr-5">
+    <div
+      className={`${
+        showSidebar &&
+        "bg-gray-300 lg:bg-transparent z-100 backdrop:filter backdrop-blur-lg"
+      } flex w-screen lg:w-[95vw] lg:ml-5 lg:mr-5 inset-y-0 left-0 h-screen`}
+    >
       <div
         className={`${
           showSidebar
-            ? "w-[10%] lg:w-[25vw]"
-            : "translate-x-[-100%] w-0 overflow-hidden"
-        } duration-300`}
+            ? "w-4/5 bg-white left-0 z-10"
+            : "translate-x-[-100%] md:translate-x-0 w-[20vw] overflow-hidden"
+        } duration-300 h-screen  lg:w-[20vw]`}
+        onClick={() => setShowSidebar(false)}
       >
         <Navigation />
       </div>
-      <div className="w-[60vw] lg:w-[70vw] grow ml-5 md:ml-5 mr-5">
-        <div className="cursor-pointer sticky top-0 bg-slate-200 w-fit">
-          <MenuIcon onClick={handleClick} />
+      <div
+        className={`w-[90vw] lg:w-[70vw] ml-5 md:ml-5 mr-5 absolute h-screen md:relative  overflow-x-auto hideScrollBar ${
+          showSidebar && "opacity-60 md:opacity-100"
+        }`}
+      >
+        <div className="cursor-pointer relative top-0 w-fit lg:hidden lg:invisible">
+          <MenuIcon onClick={() => setShowSidebar(true)} />
         </div>
-        <Routes>
-          <Route path="/" element={<HomeSection />} />
-          <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/tweet/:id" element={<TweetDetails />} />
-          <Route path="/more" element={<More />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <div onClick={() => setShowSidebar(false)} className="h-screen">
+          <Routes>
+            <Route path="/" element={<HomeSection />} />
+            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/tweet/:id" element={<TweetDetails />} />
+            <Route path="/more" element={<More />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </div>
       </div>
-      <div className="hidden lg:block w-[20vw]">
+      <div className="hidden lg:block w-[20vw] h-screen overflow-x-auto hideScrollBar">
         <TrendingNews />
       </div>
     </div>

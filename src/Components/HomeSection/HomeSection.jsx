@@ -7,12 +7,16 @@ import { useTranslation } from "react-i18next";
 import ImageIcon from "@mui/icons-material/Image";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TweetCard from "./TweetCard";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTweets } from "../../Store/Tweet/Action";
 
 function HomeSection() {
   const [uploadImage, setUploadImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const { tweet } = useSelector((store) => store);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Tweet text is required"),
@@ -36,6 +40,13 @@ function HomeSection() {
     onSubmit: handleSubmit,
     validationSchema,
   });
+
+  useEffect(() => {
+    dispatch(getAllTweets());
+  }, [tweet.like]);
+
+  console.log("tweet", tweet)
+
   return (
     <div className="space-y-5">
       <section>
@@ -46,7 +57,8 @@ function HomeSection() {
           <Avatar alt="username" src={profile} />
           <div className="w-full">
             <form onSubmit={formik.handleSubmit}>
-              <div className="grid
+              <div
+                className="grid
                   text-sm
                   after:px-3.5
                   after:py-2.5
@@ -59,13 +71,14 @@ function HomeSection() {
                   after:whitespace-pre-wrap
                   after:invisible
                   after:content-[attr(data-cloned-val)_'_']
-                  after:border">
+                  after:border"
+              >
                 <textarea
                   type="text"
                   name="content"
                   placeholder={`${t("WHATS_HAPPENING")}`}
                   rows={2}
-                  className="w-full text-slate-600 border-transparent hover:border-slate-200 appearance-none rounded px-3.5 py-2.5 outline-none"
+                  className="w-full text-slate-600 border-transparent bg-transparent hover:border-slate-200 appearance-none rounded px-3.5 py-2.5 outline-none"
                   {...formik.getFieldProps("content")}
                 />
                 {formik?.errors?.content && formik?.touched?.content && (
@@ -112,8 +125,8 @@ function HomeSection() {
         </div>
       </section>
       <section>
-        {[1, 1, 1].map(() => (
-          <TweetCard />
+        {tweet?.tweets?.map((item) => (
+          <TweetCard tweetData={item}/>
         ))}
       </section>
     </div>

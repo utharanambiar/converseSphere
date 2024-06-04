@@ -20,6 +20,7 @@ import {
   RETWEET_SUCCESS,
   FIND_TWEETS_BY_ID_SUCCESS,
   REPLY_TO_TWEET_SUCCESS,
+  LIKE_TWEETS_SUCCESS,
 } from "./ActionType";
 
 const initialState = {
@@ -70,6 +71,14 @@ export const TweetReducer = (state = initialState, action) => {
         loading: false,
         error: null,
         tweets: action?.payload,
+      };
+
+    case LIKE_TWEETS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        like: action?.payload,
       };
 
     case GET_TWEET_LIKED_BY_USER_SUCCESS:

@@ -11,13 +11,16 @@ import {
   REGISTER_USER_SUCCESS,
   OTP_VERIFICATION_FAILIURE,
   OTP_VERIFICATION_SUCCESS,
+  FIND_USER_BY_ID_SUCCESS,
+  FOLLOW_USER_SUCCESS,
+  UPDATE_USER_PROFILE_SUCCESS,
 } from "./ActionType";
 
 const initialState = {
   user: null,
   loading: false,
   error: null,
-  jwt: null,
+  jwt: localStorage.getItem("AuthToken") || null,
   verified: false,
 };
 export const authReducer = (state = initialState, action) => {
@@ -52,6 +55,29 @@ export const authReducer = (state = initialState, action) => {
         user: action?.payload,
       };
 
+    case UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        user: action?.payload,
+        updateUser: true
+      };
+    case FIND_USER_BY_ID_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        findUser: action?.payload,
+      };
+    case FOLLOW_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        findUser: action?.payload,
+      };
+
     case OTP_VERIFICATION_SUCCESS:
       return {
         ...state,
@@ -75,6 +101,6 @@ export const authReducer = (state = initialState, action) => {
       };
 
     default:
-      return state;
+      return {...state};
   }
 };
