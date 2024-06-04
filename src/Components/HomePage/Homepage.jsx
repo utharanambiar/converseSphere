@@ -13,13 +13,6 @@ import PageNotFound from "../Error/PageNotFound";
 function Homepage() {
   const [showSidebar, setShowSidebar] = React.useState(true);
 
-  const handleClick = () => {
-    setShowSidebar(!showSidebar);
-  };
-
-  const handleOutsideClick = () => {
-    setShowSidebar(false);
-  };
   return (
     <div
       className={`${
