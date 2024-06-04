@@ -62,7 +62,7 @@ function Navigation() {
           </div>
         </div>
       </div>
-      <div className="block md:flex items-center justify-between fixed bottom-0 backdrop-blur-md w-screen p-2">
+      <div className="block md:flex items-center justify-between fixed bottom-0 p-2">
         <div className="flex items-center space-x-3">
           <Avatar alt={profile} />
           <div>
