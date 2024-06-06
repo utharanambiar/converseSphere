@@ -52,7 +52,7 @@ function HomeSection() {
       <section>
         <h1 className="py-5 text-xl font-bold opacity-90">ConverseSphere</h1>
       </section>
-      <section className={`pb-10`}>
+      <section className={`pb-2 md:pb-10`}>
         <div className="flex space-x-5">
           <Avatar alt="username" src={profile} />
           <div className="w-full">
@@ -126,8 +126,14 @@ function HomeSection() {
       </section>
       <section>
         {tweet?.tweets?.map((item) => (
-          <TweetCard tweetData={item} />
+          <>
+            <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0"/>
+            <TweetCard tweetData={item} />
+          </>
         ))}
+        <div className="flex justify-around mb-6 text-gray-400 font-lato font-light">
+          You have reached the end!
+        </div>
       </section>
     </div>
   );

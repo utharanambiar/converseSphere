@@ -60,7 +60,7 @@ const TweetCard = ({ tweetData }) => {
     difference -= minutesDifference * 1000 * 60;
 
     if (daysDifference != 0) {
-      return `${daysDifference} d ago`;
+      return `${daysDifference}d ago`;
     } else if (hoursDifference != 0) {
       return `${hoursDifference} ${hoursDifference == 1 ? "hr" : "hrs"} ago`;
     } else if (minutesDifference != 0) {
@@ -212,7 +212,7 @@ const TweetCard = ({ tweetData }) => {
                   </Menu>
                 </div>
               </div>
-              <div className="mt-2 mb-14">
+              <div className="mt-2 mb-2">
                 <div
                   onClick={() => navigate(`/tweet/${3}`)}
                   className="cursor-pointer"

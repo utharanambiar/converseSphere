@@ -6,12 +6,12 @@ import TrendingNews from "../Trending/TrendingNews";
 import Profile from "../Profile/Profile";
 import { Routes, Route } from "react-router-dom";
 import TweetDetails from "../TweetDetails/TweetDetails";
-import MenuIcon from "@mui/icons-material/Menu";
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import More from "../MoreSection/More";
 import PageNotFound from "../Error/PageNotFound";
 
 function Homepage() {
-  const [showSidebar, setShowSidebar] = React.useState(true);
+  const [showSidebar, setShowSidebar] = React.useState(false);
 
   return (
     <div
@@ -25,7 +25,7 @@ function Homepage() {
           showSidebar
             ? "w-4/5 bg-white left-0 z-10"
             : "translate-x-[-100%] md:translate-x-0 w-[20vw] overflow-hidden"
-        } duration-300 h-screen  lg:w-[20vw]`}
+        } duration-300 h-screen  lg:w-[25vw]`}
         onClick={() => setShowSidebar(false)}
       >
         <Navigation />
@@ -35,8 +35,8 @@ function Homepage() {
           showSidebar && "opacity-60 md:opacity-100"
         }`}
       >
-        <div className="cursor-pointer relative top-0 w-fit lg:hidden lg:invisible">
-          <MenuIcon onClick={() => setShowSidebar(true)} />
+        <div className="cursor-pointer sticky top-0 w-full bg-white lg:hidden lg:invisible">
+          <MenuRoundedIcon onClick={() => setShowSidebar(true)} fontSize="medium"/>
         </div>
         <div onClick={() => setShowSidebar(false)} className="h-screen">
           <Routes>

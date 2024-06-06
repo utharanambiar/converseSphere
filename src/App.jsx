@@ -28,12 +28,13 @@ function App() {
       navigate("/");
     }
   }, [auth?.jwt, jwt]);
+  
   return (
     <div className="overflow-x-hidden">
       <Routes>
         <Route
           path="/*"
-          element={jwt ? <Homepage /> : <Authentication />}
+          element={auth?.jwt ? <Homepage /> : <Authentication />}
         />
         <Route exact path="/verifyotp" element={<OtpVerification />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
