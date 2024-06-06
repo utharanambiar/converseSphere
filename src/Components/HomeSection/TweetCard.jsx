@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { Avatar } from "@mui/material";
 import profile from "../../assets/profile.svg";
@@ -16,8 +16,12 @@ import UploadIcon from "@mui/icons-material/Upload";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Modal from "@mui/material/Modal";
 import ReplyModal from "../Modals/ReplyModal";
-import { useDispatch } from "react-redux";
-import { createReTweet, likeTweet } from "../../Store/Tweet/Action";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createReTweet,
+  likeTweet,
+  getAllTweets,
+} from "../../Store/Tweet/Action";
 
 const style = {
   position: "absolute",
@@ -31,7 +35,7 @@ const style = {
   p: 4,
 };
 
-const TweetCard = ({ tweetData }) => {
+const TweetCard = ({ tweetData, displayComments }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [like, setLike] = React.useState(tweetData?.liked || false);
@@ -39,6 +43,7 @@ const TweetCard = ({ tweetData }) => {
   const [deleteModal, setDeleteModal] = useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [reply, setReply] = useState(false);
+  const { tweet } = useSelector((store) => store);
   const [openReplyModal, setOpenReplyModal] = React.useState(false);
   const handleOpenReplyModal = () => setOpenReplyModal(true);
   const handleCloseReplyModal = () => setOpenReplyModal(false);
@@ -97,8 +102,8 @@ const TweetCard = ({ tweetData }) => {
 
   const handleLike = (value) => {
     console.log(value);
-    console.log(tweetData);
     dispatch(likeTweet(Number(tweetData?.id)));
+    console.log(tweetData);
     setLike(!value);
   };
   return (
@@ -179,7 +184,6 @@ const TweetCard = ({ tweetData }) => {
                   </span>
                   <span className="text-gray-600">.</span>
                   <span className="text-gray-600">
-                    {/* @{currTime - tweetData?.createdAt} */}
                     {findTimeDifference(new Date(tweetData?.createdAt))}
                   </span>
                   <img className="ml-2 w-5 h-5" src={verified} />
@@ -214,8 +218,8 @@ const TweetCard = ({ tweetData }) => {
               </div>
               <div className="mt-2 mb-2">
                 <div
-                  onClick={() => navigate(`/tweet/${3}`)}
-                  className="cursor-pointer"
+                // onClick={() => navigate(`/tweet/${tweetData?.id}`)}
+                // className="cursor-pointer"
                 >
                   <p className="mb-2 p-0">{tweetData?.content}</p>
                   {tweetData?.img && (
@@ -225,61 +229,72 @@ const TweetCard = ({ tweetData }) => {
                     />
                   )}
                 </div>
-                <div className="py-5 flex flex-wrap justify-between items-center">
-                  <div className="space-x-3 flex items-center text-gray-600">
-                    <ChatBubbleOutlineIcon
-                      className="cursor-pointer"
-                      onClick={handleOpenReplyModal}
-                    />
-                    <p>{tweetData?.totalReplies}</p>
-                  </div>
-                  <div
-                    className={`${
-                      tweetData?.totalRetweets
-                        ? "text-pink-600"
-                        : "text-gray-600"
-                    } space-x-0 flex items-center`}
-                  >
-                    <RepeatIcon
-                      onClick={()=>handleRetweet(tweetData?.id)}
-                      className="cursor-pointer"
-                    />
-                    <p>{tweetData?.totalRetweets}</p>
-                  </div>
-                  <div
-                    className={`${
-                      tweetData?.liked ? "text-pink-600" : "text-gray-600"
-                    } space-x-0 flex items-center`}
-                  >
-                    {like ? (
-                      <FavoriteIcon
+                {displayComments && (
+                  <div className="py-5 flex flex-wrap justify-between items-center">
+                    <div className="space-x-3 flex items-center text-gray-600">
+                      <ChatBubbleOutlineIcon
                         className="cursor-pointer"
-                        onClick={() => handleLike(true)}
+                        onClick={handleOpenReplyModal}
                       />
-                    ) : (
-                      <FavoriteBorderIcon
+                      <p>{tweetData?.totalReplies}</p>
+                    </div>
+                    <div
+                      className={`${
+                        tweetData?.totalRetweets
+                          ? "text-pink-600"
+                          : "text-gray-600"
+                      } space-x-0 flex items-center`}
+                    >
+                      <RepeatIcon
+                        onClick={() => handleRetweet(tweetData?.id)}
                         className="cursor-pointer"
-                        onClick={() => handleLike(false)}
                       />
-                    )}
-                    <p>{tweetData?.totalLikes}</p>
+                      <p>{tweetData?.totalRetweets}</p>
+                    </div>
+                    <div
+                      className={`${
+                        tweetData?.liked ? "text-pink-600" : "text-gray-600"
+                      } space-x-0 flex items-center`}
+                    >
+                      {like ? (
+                        <FavoriteIcon
+                          className="cursor-pointer"
+                          onClick={() => handleLike(true)}
+                        />
+                      ) : (
+                        <FavoriteBorderIcon
+                          className="cursor-pointer"
+                          onClick={() => handleLike(false)}
+                        />
+                      )}
+                      <p>{tweetData?.totalLikes}</p>
+                    </div>
+                    <div className="space-x-3 flex items-center text-gray-600">
+                      <BarChartIcon
+                        className="cursor-pointer"
+                        onClick={handleOpenReplyModal}
+                      />
+                      <p>2787</p>
+                    </div>
+                    <div className="space-x-3 flex items-center text-gray-600">
+                      <UploadIcon
+                        className="cursor-pointer"
+                        onClick={handleOpenReplyModal}
+                      />
+                    </div>
                   </div>
-                  <div className="space-x-3 flex items-center text-gray-600">
-                    <BarChartIcon
-                      className="cursor-pointer"
-                      onClick={handleOpenReplyModal}
-                    />
-                    <p>2787</p>
+                )}
+                {tweetData?.totalReplies > 0 && displayComments && (
+                  <div
+                    onClick={() => navigate(`/tweet/${tweetData?.id}`)}
+                    className="cursor-pointer text-gray-400"
+                  >
+                    {`View all ${tweetData?.totalReplies} replies`}
                   </div>
-                  <div className="space-x-3 flex items-center text-gray-600">
-                    <UploadIcon
-                      className="cursor-pointer"
-                      onClick={handleOpenReplyModal}
-                    />
-                  </div>
-                </div>
+                )}
                 <section>
                   <ReplyModal
+                    item={tweetData}
                     openReplyModal={openReplyModal}
                     handleCloseReplyModal={handleCloseReplyModal}
                   />

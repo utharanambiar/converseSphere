@@ -43,7 +43,13 @@ function HomeSection() {
 
   useEffect(() => {
     dispatch(getAllTweets());
-  }, [tweet.like, tweet?.retweet]);
+  }, [
+    tweet?.like,
+    tweet?.retweet,
+    tweet?.totalReplies,
+    tweet?.replyTweets?.length,
+    tweet?.replyTweet
+  ]);
 
   console.log("tweet", tweet);
 
@@ -127,8 +133,8 @@ function HomeSection() {
       <section>
         {tweet?.tweets?.map((item) => (
           <>
-            <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0"/>
-            <TweetCard tweetData={item} />
+            <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
+            <TweetCard tweetData={item} displayComments={true} />
           </>
         ))}
         <div className="flex justify-around mb-6 text-gray-400 font-lato font-light">

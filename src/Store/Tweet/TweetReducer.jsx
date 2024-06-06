@@ -106,12 +106,19 @@ export const TweetReducer = (state = initialState, action) => {
       };
 
     case FIND_TWEETS_BY_ID_SUCCESS:
-    case REPLY_TO_TWEET_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
         tweet: action?.payload,
+      };
+      
+    case REPLY_TO_TWEET_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        replyTweet: action?.payload,
       };
 
     default:

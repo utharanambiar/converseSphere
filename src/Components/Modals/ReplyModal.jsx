@@ -15,6 +15,8 @@ import { useTranslation } from "react-i18next";
 import ImageIcon from "@mui/icons-material/Image";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import { useDispatch } from "react-redux";
+import { createTweetReply } from "../../Store/Tweet/Action";
 
 const style = {
   position: "absolute",
@@ -29,16 +31,19 @@ const style = {
   padding: 2,
 };
 
-function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
+function ReplyModal({ openReplyModal, handleCloseReplyModal, item }) {
   const navigate = useNavigate();
   const [uploadImage, setUploadImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Tweet text is required"),
   });
   const handleSubmit = (values) => {
+    dispatch(createTweetReply(values));
     console.log(values);
+    handleCloseReplyModal();
   };
 
   const handleSelectImage = (event) => {
@@ -52,7 +57,7 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
     initialValues: {
       content: "",
       image: "",
-      tweetId: 3,
+      tweetId: item?.id,
     },
     onSubmit: handleSubmit,
     validationSchema,
@@ -136,7 +141,6 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
         </div>
         <section className={`mt-10`}>
           <div className="flex space-x-5">
-            {/* <Avatar alt="username" src={profile} /> */}
             <div className="w-full">
               <form onSubmit={formik.handleSubmit}>
                 <div
@@ -170,7 +174,6 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal }) {
                       {formik?.errors?.content}
                     </span>
                   )}
-                  {/* <input type="submit" onClick={() => handleSubmit()} /> */}
                 </div>
                 <div className="flex justify-between items-center mt-5">
                   <div className="flex space-x-5 items-center">

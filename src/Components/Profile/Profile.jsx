@@ -1,6 +1,6 @@
 import React from "react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import profile from "../../assets/profile.svg";
 import verified from "../../assets/verified.svg";
@@ -15,11 +15,16 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "../Modals/ProfileModal";
+import { useDispatch, useSelector } from "react-redux";
+import { findTweetsById } from "../../Store/Tweet/Action";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
   const [openProfileModal, setOpenProfileModal] = React.useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { tweet } = useSelector((store) => store);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -46,6 +51,15 @@ function Profile() {
   const handleFollowUser = () => {
     console.log("follow user");
   };
+
+  React.useEffect(() => {
+    if (id) {
+      dispatch(findTweetsById(id));
+    }
+  }, [id]);
+
+  console.log("tweet data here:", tweet)
+
   return (
     <div>
       <section
@@ -143,14 +157,20 @@ function Profile() {
                 <Tab label="Likes" value="4" />
               </TabList>
             </Box>
-            <TabPanel value="1" sx={{p: 1.5}}>
-              {[1, 1, 1, 1].map((item) => (
-                <TweetCard />
+            <TabPanel value="1" sx={{ p: 1 }}>
+              {tweet?.tweets?.map((item) => (
+                <TweetCard tweetData={item} displayComments={false} />
               ))}
             </TabPanel>
-            <TabPanel value="2">Replies</TabPanel>
+            <TabPanel value="2" sx={{ p: 1 }}>
+              {tweet?.tweet?.replyTweets?.map((item) => (
+                <TweetCard tweetData={item} displayComments={false} />
+              ))}
+            </TabPanel>
             <TabPanel value="3">Media</TabPanel>
-            <TabPanel value="4">Likes</TabPanel>
+            <TabPanel value="4" sx={{ p: 1.5 }}>{tweet?.tweet?.replyTweets?.map((item) => (
+                <TweetCard tweetData={item} displayComments={false} />
+              ))}</TabPanel>
           </TabContext>
         </Box>
       </section>
