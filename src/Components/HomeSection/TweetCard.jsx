@@ -106,6 +106,8 @@ const TweetCard = ({ tweetData, displayComments }) => {
     console.log(tweetData);
     setLike(!value);
   };
+
+  console.log("hereeee",tweetData)
   return (
     <React.Fragment>
       <Modal
@@ -160,21 +162,21 @@ const TweetCard = ({ tweetData, displayComments }) => {
               className="cursor-pointer"
               src={tweetData?.img || profile}
               alt="username"
-              onClick={() => navigate(`/profile/${6}`)}
+              onClick={() => navigate(`/profile/${tweetData?.user?.id}`)}
             />
             <div className="w-full">
               <div className="flex justify-between items-center">
                 <div className="flex cursor-pointer items-center space-x-2">
                   <span
                     className="font-semibold hidden md:block"
-                    onClick={() => navigate(`/profile/${6}`)}
+                    onClick={() => navigate(`/profile/${tweetData?.user?.id}`)}
                   >
                     {tweetData?.user?.fullName || "Dummy account"}
                   </span>
                   <span className="text-gray-600 hidden md:block">.</span>
                   <span
                     className="text-gray-600"
-                    onClick={() => navigate(`/profile/${6}`)}
+                    onClick={() => navigate(`/profile/${tweetData?.user?.id}`)}
                   >
                     @
                     {tweetData?.user?.fullName

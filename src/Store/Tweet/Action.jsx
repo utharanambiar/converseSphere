@@ -2,6 +2,8 @@ import { api } from "../../config/api";
 import {
   FIND_TWEETS_BY_ID_FAILIURE,
   FIND_TWEETS_BY_ID_SUCCESS,
+  GET_ALL_REPLIES_BY_USER_FAILIURE,
+  GET_ALL_REPLIES_BY_USER_SUCCESS,
   GET_ALL_TWEETS_FAILIURE,
   GET_ALL_TWEETS_SUCCESS,
   GET_TWEET_LIKED_BY_USER_FAILIURE,
@@ -56,7 +58,7 @@ export const getTweetsLikedByUser = (userId) => async (dispatch) => {
 export const findTweetsById = (tweetId) => async (dispatch) => {
   try {
     const { data } = await api.get(`/api/tweet/${tweetId}`);
-    console.log("get all tweets:", data);
+    console.log("get tweet by id:", data);
     dispatch({ type: FIND_TWEETS_BY_ID_SUCCESS, payload: data });
   } catch (e) {
     console.error(e);
@@ -116,5 +118,16 @@ export const deleteTweet = (tweetId) => async (dispatch) => {
   } catch (e) {
     console.error(e);
     dispatch({ type: TWEET_DELETE_FAILIURE, payload: e?.message });
+  }
+};
+
+export const getRepliesByUser = (userId) => async (dispatch) => {
+  try {
+    const { data } = await api.get(`/api/tweet/replies/user/${userId}`);
+    console.log("get all replies by user:", data);
+    dispatch({ type: GET_ALL_REPLIES_BY_USER_SUCCESS, payload: data });
+  } catch (e) {
+    console.error(e);
+    dispatch({ type: GET_ALL_REPLIES_BY_USER_FAILIURE, payload: e?.message });
   }
 };

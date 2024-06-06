@@ -48,8 +48,12 @@ function HomeSection() {
     tweet?.retweet,
     tweet?.totalReplies,
     tweet?.replyTweets?.length,
-    tweet?.replyTweet
+    tweet?.replyTweet,
   ]);
+
+  useEffect(() => {
+    dispatch(getAllTweets());
+  }, []);
 
   console.log("tweet", tweet);
 

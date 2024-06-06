@@ -16,7 +16,11 @@ import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "../Modals/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
-import { findTweetsById } from "../../Store/Tweet/Action";
+import {
+  findTweetsById,
+  getUsersTweet,
+  getRepliesByUser,
+} from "../../Store/Tweet/Action";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
@@ -45,7 +49,6 @@ function Profile() {
 
   const handleOpenProfileModal = () => {
     setOpenProfileModal(true);
-    console.log("profile modal opened", openProfileModal);
   };
 
   const handleFollowUser = () => {
@@ -54,11 +57,12 @@ function Profile() {
 
   React.useEffect(() => {
     if (id) {
-      dispatch(findTweetsById(id));
+      dispatch(getUsersTweet(id));
+      dispatch(getRepliesByUser(id));
     }
   }, [id]);
 
-  console.log("tweet data here:", tweet)
+  console.log(tweet);
 
   return (
     <div>
@@ -153,24 +157,33 @@ function Profile() {
               >
                 <Tab label="Tweets" value="1" />
                 <Tab label="Replies" value="2" />
-                <Tab label="Media" value="3" />
                 <Tab label="Likes" value="4" />
               </TabList>
             </Box>
             <TabPanel value="1" sx={{ p: 1 }}>
-              {tweet?.tweets?.map((item) => (
-                <TweetCard tweetData={item} displayComments={false} />
-              ))}
+              {tweet?.tweets
+                ?.sort((a, b) => {
+                  return a?.id - b?.id;
+                })
+                ?.map((item) => (
+                  <TweetCard tweetData={item} displayComments={false} />
+                ))}
             </TabPanel>
             <TabPanel value="2" sx={{ p: 1 }}>
+              {tweet?.tweet?.replyTweets.length > 0 ? (tweet?.tweet?.replyTweets
+                ?.sort((a, b) => {
+                  return b?.id - a?.id;
+                })
+                ?.map((item) => (
+                  <TweetCard tweetData={item} displayComments={false} />
+                ))) : "No replies yet"}
+            </TabPanel>
+            {/* <TabPanel value="3">Media</TabPanel> */}
+            <TabPanel value="4" sx={{ p: 1.5 }}>
               {tweet?.tweet?.replyTweets?.map((item) => (
                 <TweetCard tweetData={item} displayComments={false} />
               ))}
             </TabPanel>
-            <TabPanel value="3">Media</TabPanel>
-            <TabPanel value="4" sx={{ p: 1.5 }}>{tweet?.tweet?.replyTweets?.map((item) => (
-                <TweetCard tweetData={item} displayComments={false} />
-              ))}</TabPanel>
           </TabContext>
         </Box>
       </section>
