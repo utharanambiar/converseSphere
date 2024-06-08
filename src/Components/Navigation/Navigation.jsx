@@ -22,6 +22,8 @@ function Navigation() {
   const handleLogout = () => {
     dispatch(logoutUser());
   };
+
+  console.log("authh", auth)
   return (
     <>
       <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden">
@@ -38,7 +40,7 @@ function Navigation() {
                 key={item?.title}
                 onClick={() => {
                   item?.title === "PROFILE"
-                    ? navigate(`/profile/${5}`)
+                    ? navigate(`/profile/${auth?.user?.id}`)
                     : navigate(item?.path);
                   setSelected(index);
                 }}

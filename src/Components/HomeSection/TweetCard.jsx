@@ -107,7 +107,8 @@ const TweetCard = ({ tweetData, displayComments }) => {
     setLike(!value);
   };
 
-  console.log("hereeee",tweetData)
+  console.log("twet data in card: ", tweet)
+
   return (
     <React.Fragment>
       <Modal
@@ -160,7 +161,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
           <div className="flex lg:space-x-5">
             <Avatar
               className="cursor-pointer"
-              src={tweetData?.img || profile}
+              src={profile}
               alt="username"
               onClick={() => navigate(`/profile/${tweetData?.user?.id}`)}
             />
@@ -220,7 +221,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
               </div>
               <div className="mt-2 mb-2">
                 <div
-                // onClick={() => navigate(`/tweet/${tweetData?.id}`)}
+                // onClick={() => !displayComments && navigate(`/tweet/${Number(tweet?.replyFor)}`)}
                 // className="cursor-pointer"
                 >
                   <p className="mb-2 p-0">{tweetData?.content}</p>

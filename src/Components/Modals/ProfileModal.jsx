@@ -8,6 +8,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import profile from "../../assets/profile.svg";
 import { Avatar } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../../Store/Auth/Action";
 
 const style = {
   position: "absolute",
@@ -23,9 +25,13 @@ const style = {
 
 export default function ProfileModal({ open, handleClose }) {
   const [uploading, setUploading] = React.useState(false);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
     console.log("submitted", values);
+    dispatch(updateUserProfile(values));
+    actions.resetForm();
+    handleClose();
   };
 
   const handleBackgroundImageChange = (event) => {
@@ -75,9 +81,7 @@ export default function ProfileModal({ open, handleClose }) {
                   <p className="text-sm">Edit profile</p>
                 </IconButton>
               </div>
-              <Button type="submit" onClick={handleClose}>
-                Save
-              </Button>
+              <Button type="submit">Save</Button>
             </div>
             <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
               <React.Fragment>
@@ -102,7 +106,7 @@ export default function ProfileModal({ open, handleClose }) {
                     <Avatar
                       src={profile}
                       sx={{
-                        width : "10rem",
+                        width: "10rem",
                         height: "10rem",
                         border: "4px solid white",
                       }}

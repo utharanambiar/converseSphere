@@ -29,6 +29,7 @@ function Profile() {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { tweet } = useSelector((store) => store);
+  const { auth } = useSelector((store) => store);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,7 +75,7 @@ function Profile() {
           onClick={handleBack}
         />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">
-          Uthara Nambiar
+          {auth?.user?.fullName}
         </h1>
       </section>
       <section>
@@ -114,13 +115,16 @@ function Profile() {
         </div>
         <div>
           <div className="flex items-center">
-            <h1 className="font-bold text-lg">Uthara Nambiar</h1>
+            <h1 className="font-bold text-lg">{auth?.user?.fullName}</h1>
             {true && <img className="ml-2 w-5 h-5" src={verified} />}
           </div>
-          <h1 className="text-gray-500">@utharanambiar</h1>
+          <h1 className="text-gray-500">
+            {auth?.user?.username ||
+              `@${auth?.user?.fullName?.split(" ").join("_").toLowerCase()}`}
+          </h1>
         </div>
         <div className="mt-2 space-y-3">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+          <p>{auth?.user?.bio}</p>
           <div className="py-1 flex space-x-5">
             <div className="flex items-center text-gray-500">
               <BusinessCenterSharp />
@@ -128,7 +132,7 @@ function Profile() {
             </div>
             <div className="flex items-center text-gray-500">
               <LocationOnIcon />
-              <p className="ml-2">India</p>
+              <p className="ml-2">{auth?.user?.location || 'Location'}</p>
             </div>
             <div className="flex items-center text-gray-500">
               <CalendarMonthIcon />
@@ -137,11 +141,13 @@ function Profile() {
           </div>
           <div className="flex items-start space-x-5">
             <div className="flex items-center space-x-1 font-semibold">
-              <span>30</span>
+              <span>{auth?.user?.following.length > 0 ? auth?.user?.following : "0"}</span>
               <span className="text-gray-500">Following</span>
             </div>
             <div className="flex items-center space-x-1 font-semibold">
-              <span>670</span>
+              <span>
+                {auth?.user?.followers.length > 0 ? auth?.user?.followers : "0"}
+              </span>
               <span className="text-gray-500">Followers</span>
             </div>
           </div>
@@ -170,13 +176,15 @@ function Profile() {
                 ))}
             </TabPanel>
             <TabPanel value="2" sx={{ p: 1 }}>
-              {tweet?.tweet?.replyTweets.length > 0 ? (tweet?.tweet?.replyTweets
-                ?.sort((a, b) => {
-                  return b?.id - a?.id;
-                })
-                ?.map((item) => (
-                  <TweetCard tweetData={item} displayComments={false} />
-                ))) : "No replies yet"}
+              {tweet?.replyTweets
+                ? tweet?.replyTweets
+                    ?.sort((a, b) => {
+                      return b?.id - a?.id;
+                    })
+                    ?.map((item) => (
+                      <TweetCard tweetData={item} displayComments={false} />
+                    ))
+                : "No replies yet"}
             </TabPanel>
             {/* <TabPanel value="3">Media</TabPanel> */}
             <TabPanel value="4" sx={{ p: 1.5 }}>

@@ -128,7 +128,8 @@ export const TweetReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         error: null,
-        replyTweet: action?.payload,
+        replyTweet: action?.payload?.replyTweet,
+        replyFor: action?.payload?.replyFor
       };
 
     default:

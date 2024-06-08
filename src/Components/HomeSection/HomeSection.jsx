@@ -10,7 +10,8 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { useState, useEffect } from "react";
 import TweetCard from "./TweetCard";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTweets } from "../../Store/Tweet/Action";
+import { createTweet, getAllTweets } from "../../Store/Tweet/Action";
+import { uploadToCloudinary } from "../../Utils/uploadToCloudinary";
 
 function HomeSection() {
   const [uploadImage, setUploadImage] = useState(false);
@@ -21,21 +22,25 @@ function HomeSection() {
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Tweet text is required"),
   });
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
     console.log(values);
+    actions.resetForm();
+    dispatch(createTweet(values));
+    setSelectedImage(null)
   };
 
-  const handleSelectImage = (event) => {
+  const handleSelectImage = async (event) => {
     setUploadImage(true);
-    const imgURL = event.target.files[0];
-    formik.setFieldValue("image", imgURL);
+    const imgURL = await uploadToCloudinary(event.target.files[0]);
+    formik.setFieldValue("img", imgURL);
     setSelectedImage(imgURL);
     setUploadImage(false);
   };
   const formik = useFormik({
     initialValues: {
       content: "",
-      image: "",
+      img: "",
+      isTweet: true,
     },
     onSubmit: handleSubmit,
     validationSchema,
@@ -97,6 +102,9 @@ function HomeSection() {
                     {formik?.errors?.content}
                   </span>
                 )}
+                <div>
+                  {selectedImage && <img src={selectedImage} alt="image" />}
+                </div>
                 {/* <input type="submit" onClick={() => handleSubmit()} /> */}
               </div>
               <div className="flex justify-between items-center mt-5">

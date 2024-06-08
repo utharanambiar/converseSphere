@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route
           path="/*"
-          element={auth?.jwt ? <Homepage /> : <Authentication />}
+          element={auth?.jwt && auth?.user ? <Homepage /> : <Authentication />}
         />
         <Route exact path="/verifyotp" element={<OtpVerification />}></Route>
         <Route path="*" element={<PageNotFound />}></Route>
