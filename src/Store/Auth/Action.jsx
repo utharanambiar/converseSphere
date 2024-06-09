@@ -5,6 +5,7 @@ import {
   FOLLOW_USER_FAILIURE,
   FOLLOW_USER_SUCCESS,
   GET_USER_PROFILE_FAILIURE,
+  GET_USER_PROFILE_REQUEST,
   GET_USER_PROFILE_SUCCESS,
   LOGIN_USER_FAILIURE,
   LOGIN_USER_REQUEST,
@@ -56,17 +57,20 @@ export const loginUser = (loginData) => async (dispatch) => {
 };
 
 export const getUserProfile = (jwt) => async (dispatch) => {
+  dispatch({ type: GET_USER_PROFILE_REQUEST, payload: true });
   try {
     const { data } = await axios.get(`${API_BASE_URL}/api/users/profile`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    console.log(data);
+    console.log("profile", data);
     dispatch({ type: GET_USER_PROFILE_SUCCESS, payload: data });
   } catch (error) {
     console.error(error);
     dispatch({ type: GET_USER_PROFILE_FAILIURE, payload: error?.message });
+  } finally {
+    dispatch({ type: GET_USER_PROFILE_REQUEST, payload: false });
   }
 };
 

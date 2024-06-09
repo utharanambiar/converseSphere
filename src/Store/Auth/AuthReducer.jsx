@@ -61,7 +61,7 @@ export const authReducer = (state = initialState, action) => {
         loading: false,
         error: null,
         user: action?.payload,
-        updateUser: true
+        updateUser: true,
       };
     case FIND_USER_BY_ID_SUCCESS:
       return {
@@ -101,6 +101,6 @@ export const authReducer = (state = initialState, action) => {
       };
 
     default:
-      return {...state};
+      return { ...state };
   }
 };

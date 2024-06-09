@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { navigationOptions } from "./NavigationMenu";
 import logo from "../../assets/converseSphere.svg";
 import { useNavigate } from "react-router-dom";
@@ -10,20 +10,23 @@ import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { useDispatch, useSelector } from "react-redux";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import IconButton from "@mui/material/IconButton";
-import { logoutUser } from "../../Store/Auth/Action";
+import { logoutUser, getUserProfile } from "../../Store/Auth/Action";
 
-function Navigation() {
+function Navigation({authData}) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(-1);
-  const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const jwt = localStorage.getItem("AuthToken");
 
   const handleLogout = () => {
     dispatch(logoutUser());
   };
 
-  console.log("authh", auth)
+  useEffect(() => {
+    dispatch(getUserProfile(jwt));
+  }, []);
+
   return (
     <>
       <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden">
@@ -40,7 +43,7 @@ function Navigation() {
                 key={item?.title}
                 onClick={() => {
                   item?.title === "PROFILE"
-                    ? navigate(`/profile/${auth?.user?.id}`)
+                    ? navigate(`/profile/${authData?.user?.id}`)
                     : navigate(item?.path);
                   setSelected(index);
                 }}
@@ -69,10 +72,10 @@ function Navigation() {
           <Avatar alt={profile} />
           <div>
             <span>
-              {auth?.user?.fullName}
+              {authData?.user?.fullName}
               <br />
               <span className="opacity-70">
-                @{auth?.user?.fullName?.split(" ").join("_").toLowerCase()}
+                @{authData?.user?.fullName?.split(" ").join("_").toLowerCase()}
               </span>
             </span>
           </div>

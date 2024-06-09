@@ -9,9 +9,14 @@ import TweetDetails from "../TweetDetails/TweetDetails";
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import More from "../MoreSection/More";
 import PageNotFound from "../Error/PageNotFound";
+import { useDispatch, useSelector } from "react-redux";
 
 function Homepage() {
   const [showSidebar, setShowSidebar] = React.useState(false);
+  const { auth } = useSelector((store) => store);
+
+
+  console.log("auth in homepage to check why not loading:", auth)
 
   return (
     <div
@@ -28,7 +33,7 @@ function Homepage() {
         } duration-300 h-screen  lg:w-[25vw]`}
         onClick={() => setShowSidebar(false)}
       >
-        <Navigation />
+        <Navigation authData={auth}/>
       </div>
       <div
         className={`w-[90vw] lg:w-[70vw] ml-5 md:ml-5 mr-5 absolute h-screen md:relative  overflow-x-auto hideScrollBar ${

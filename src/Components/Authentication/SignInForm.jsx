@@ -22,8 +22,6 @@ function SignInForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(auth);
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {

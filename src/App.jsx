@@ -13,22 +13,21 @@ function App() {
   const navigate = useNavigate();
   const jwt = localStorage.getItem("AuthToken");
   const dispatch = useDispatch();
-  console.log(auth);
 
   useEffect(() => {
     if (jwt) {
       dispatch(getUserProfile(jwt));
       navigate("/");
     }
-  }, [])
-  
+  }, []);
+
   useEffect(() => {
     if (jwt && auth?.verified) {
       dispatch(getUserProfile(jwt));
       navigate("/");
     }
   }, [auth?.jwt, jwt]);
-  
+
   return (
     <div className="overflow-x-hidden">
       <Routes>
