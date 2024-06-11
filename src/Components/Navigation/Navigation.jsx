@@ -29,7 +29,7 @@ function Navigation({authData}) {
 
   return (
     <>
-      <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden">
+      <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden dark:bg-[#26282B]">
         <div>
           <div className="py-3 cursor-pointer">
             <img src={logo} onClick={() => navigate("/")} />

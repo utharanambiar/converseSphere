@@ -14,6 +14,17 @@ function App() {
   const jwt = localStorage.getItem("AuthToken");
   const dispatch = useDispatch();
 
+  let theme = localStorage.getItem("theme");
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme","dark")
+    } else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem("theme","light")
+    }
+  }, []);
+
   useEffect(() => {
     if (jwt) {
       dispatch(getUserProfile(jwt));
@@ -29,7 +40,7 @@ function App() {
   }, [auth?.jwt, jwt]);
 
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-x-hidden dark:bg-[#26282B] dark:text-white">
       <Routes>
         <Route
           path="/*"
