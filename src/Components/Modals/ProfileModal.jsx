@@ -71,14 +71,17 @@ export default function ProfileModal({ open, handleClose }) {
   });
 
   return (
-    <div className="modal-content absolute bottom-0 bg-white drop-shadow-xl lg:w-full animate-slideDown">
+    <div className="modal-content absolute bottom-0 bg-white dark:text-gray-400 drop-shadow-xl lg:w-full animate-slideDown">
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} className="w-[350px] lg:w-[600px]">
+        <Box
+          sx={style}
+          className="w-[350px] lg:w-[600px] dark:bg-[#353941] dark:text-gray-400"
+        >
           <form onSubmit={formik.handleSubmit}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
@@ -138,6 +141,9 @@ export default function ProfileModal({ open, handleClose }) {
               <div className="space-y-3">
                 <TextField
                   fullWidth
+                  //to do:
+                  //sx={{ input: { color: 'white' }}}
+                  className="dark:text-white"
                   inputProps={{ maxLength: 12 }}
                   id="fullName"
                   name="fullName"
@@ -155,6 +161,7 @@ export default function ProfileModal({ open, handleClose }) {
                   fullWidth
                   multiline
                   rows={4}
+                  inputProps={{ maxLength: 200 }}
                   id="bio"
                   name="bio"
                   label="Bio"

@@ -40,7 +40,7 @@ function App() {
   }, [auth?.jwt, jwt]);
 
   return (
-    <div className="overflow-x-hidden dark:bg-[#26282B] dark:text-white">
+    <div className="overflow-x-hidden dark:bg-[#26282B] dark:text-gray-400">
       <Routes>
         <Route
           path="/*"

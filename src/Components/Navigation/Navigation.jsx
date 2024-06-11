@@ -29,15 +29,15 @@ function Navigation({authData}) {
 
   return (
     <>
-      <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden dark:bg-[#26282B]">
+      <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden md:p-3 dark:bg-[#353941]">
         <div>
           <div className="py-3 cursor-pointer">
-            <img src={logo} onClick={() => navigate("/")} />
+            <img className="mix-blend-multiply" src={logo} onClick={() => navigate("/")} />
           </div>
           <div>
             {navigationOptions.map((item, index) => (
               <div
-                className={`cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md`}
+                className={`cursor-pointer flex space-x-3 items-center hover:text-blue-200 dark:hover:text-white h-10 rounded-md`}
                 key={item?.title}
                 onClick={() => {
                   item?.title === "PROFILE"

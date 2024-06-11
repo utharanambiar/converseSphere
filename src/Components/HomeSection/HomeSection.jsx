@@ -63,7 +63,7 @@ function HomeSection() {
   console.log("tweet", tweet);
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 ml-5 mr-5">
       <section>
         <h1 className="py-5 text-xl font-bold opacity-90">ConverseSphere</h1>
       </section>

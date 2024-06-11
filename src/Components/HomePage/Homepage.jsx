@@ -23,35 +23,35 @@ function Homepage() {
       className={`${
         showSidebar &&
         "bg-gray-300 lg:bg-transparent z-100 backdrop:filter backdrop-blur-lg"
-      } flex w-screen lg:w-[95vw] lg:ml-5 lg:mr-5 inset-y-0 left-0 h-screen`}
+      } flex w-screen lg:w-[95vw] lg:mr-5 inset-y-0 left-0 h-screen`}
     >
       <div
         className={`${
           showSidebar
             ? "w-4/5 bg-white left-0 z-10"
             : "translate-x-[-100%] md:translate-x-0 w-[20vw] overflow-hidden"
-        } duration-300 h-screen  lg:w-[25vw]`}
+        } duration-300 h-screen lg:w-[25vw] dark:bg-[#353941]`}
         onClick={() => setShowSidebar(false)}
       >
         <Navigation authData={auth}/>
       </div>
       <div
-        className={`w-[90vw] lg:w-[70vw] ml-5 md:ml-5 mr-5 absolute h-screen md:relative  overflow-x-auto hideScrollBar ${
+        className={` lg:w-[70vw] md:ml-0 md:mr-0 mr-2 absolute h-screen md:relative  overflow-x-auto hideScrollBar ${
           showSidebar && "opacity-60 md:opacity-100"
         }`}
       >
-        <div className="cursor-pointer sticky top-0 w-full bg-white lg:hidden lg:invisible">
+        <div className="cursor-pointer sticky top-0 pt-3 pl-2 bg-white lg:hidden lg:invisible dark:bg-[#353941]">
           <MenuRoundedIcon onClick={() => setShowSidebar(true)} fontSize="medium"/>
-        </div>
         <div onClick={() => setShowSidebar(false)} className="h-screen">
           <Routes>
             <Route path="/" element={<HomeSection />} />
-            <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/profile/:id" element={<Profile setShowSidebar={setShowSidebar}/>} />
             <Route path="/tweet/:id" element={<TweetDetails />} />
             <Route path="/more" element={<More />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>
+      </div>
       </div>
       <div className="hidden lg:block w-[20vw] h-screen overflow-x-auto hideScrollBar">
         <TrendingNews />
