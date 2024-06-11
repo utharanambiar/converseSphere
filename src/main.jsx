@@ -9,7 +9,7 @@ import { store } from "./Store/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <I18nextProvider i18n={i18n}>
       <BrowserRouter>
         <Provider store={store}>
@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </Provider>
       </BrowserRouter>
     </I18nextProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

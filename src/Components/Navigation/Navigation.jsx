@@ -14,7 +14,7 @@ import { logoutUser, getUserProfile } from "../../Store/Auth/Action";
 
 function Navigation({authData}) {
   const { t } = useTranslation();
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const jwt = localStorage.getItem("AuthToken");
@@ -37,9 +37,7 @@ function Navigation({authData}) {
           <div>
             {navigationOptions.map((item, index) => (
               <div
-                className={`cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md ${
-                  selected === index ? `bg-slate-200` : ``
-                }`}
+                className={`cursor-pointer flex space-x-3 items-center hover:bg-slate-200 h-10 rounded-md`}
                 key={item?.title}
                 onClick={() => {
                   item?.title === "PROFILE"
@@ -48,8 +46,12 @@ function Navigation({authData}) {
                   setSelected(index);
                 }}
               >
-                <span className="ml-2">{item?.icon}</span>
-                <p className="text-l items-center">{t(item?.title)}</p>
+                <span className={`ml-2 font-lato ${
+                  selected === index ? `text-blue-600` : ``
+                }`}>{item?.icon}</span>
+                <p className={`text-l items-center ${
+                  selected === index ? `text-blue-600` : ``
+                }`}>{t(item?.title)}</p>
               </div>
             ))}
             <div className="pt-4 pb-4 ml-2">

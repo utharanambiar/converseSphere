@@ -21,6 +21,7 @@ import {
   getUsersTweet,
   getRepliesByUser,
 } from "../../Store/Tweet/Action";
+import { findUserById, followUser } from "../../Store/Auth/Action";
 
 function Profile() {
   const [value, setValue] = React.useState("1");
@@ -53,11 +54,13 @@ function Profile() {
   };
 
   const handleFollowUser = () => {
+    dispatch(followUser(id));
     console.log("follow user");
   };
 
   React.useEffect(() => {
     if (id) {
+      dispatch(findUserById(id));
       dispatch(getUsersTweet(id));
       dispatch(getRepliesByUser(id));
     }
@@ -75,13 +78,16 @@ function Profile() {
           onClick={handleBack}
         />
         <h1 className="py-5 text-xl font-bold opacity-90 ml-5">
-          {auth?.user?.fullName}
+          {auth?.findUser?.fullName}
         </h1>
       </section>
       <section>
         <img
           className="w-[100%] h-[15rem] object-cover"
-          src="https://cdn.pixabay.com/photo/2019/03/03/20/23/background-4032775_1280.png"
+          src={
+            auth?.findUser?.bannerImage ||
+            "https://cdn.pixabay.com/photo/2019/03/03/20/23/background-4032775_1280.png"
+          }
           alt="image"
         />
       </section>
@@ -90,10 +96,10 @@ function Profile() {
           <Avatar
             className="transform -translate-y-24"
             alt="username"
-            src={profile}
+            src={auth?.findUser?.profileImage || profile}
             sx={{ width: "10rem", height: "10rem", border: "4px solid white" }}
           />
-          {true ? (
+          {auth?.findUser?.isReqUser ? (
             <Button
               className="rounded-full"
               variant="contained"
@@ -109,30 +115,33 @@ function Profile() {
               sx={{ borderRadius: "20px" }}
               onClick={handleFollowUser}
             >
-              {true ? "Follow" : "Unfollow"}
+              {auth?.findUser?.followed ? "Unfollow" : "Follow"}
             </Button>
           )}
         </div>
         <div>
           <div className="flex items-center">
-            <h1 className="font-bold text-lg">{auth?.user?.fullName}</h1>
+            <h1 className="font-bold text-lg">{auth?.findUser?.fullName}</h1>
             {true && <img className="ml-2 w-5 h-5" src={verified} />}
           </div>
           <h1 className="text-gray-500">
-            {auth?.user?.username ||
-              `@${auth?.user?.fullName?.split(" ").join("_").toLowerCase()}`}
+            {auth?.findUser?.username ||
+              `@${auth?.findUser?.fullName
+                ?.split(" ")
+                .join("_")
+                .toLowerCase()}`}
           </h1>
         </div>
         <div className="mt-2 space-y-3">
-          <p>{auth?.user?.bio}</p>
+          <p>{auth?.findUser?.bio}</p>
           <div className="py-1 flex space-x-5">
             <div className="flex items-center text-gray-500">
               <BusinessCenterSharp />
-              <p className="ml-2">Education</p>
+              <p className="ml-2">{auth?.findUser?.website || "Website"}</p>
             </div>
             <div className="flex items-center text-gray-500">
               <LocationOnIcon />
-              <p className="ml-2">{auth?.user?.location || 'Location'}</p>
+              <p className="ml-2">{auth?.findUser?.location || "Location"}</p>
             </div>
             <div className="flex items-center text-gray-500">
               <CalendarMonthIcon />
@@ -141,13 +150,11 @@ function Profile() {
           </div>
           <div className="flex items-start space-x-5">
             <div className="flex items-center space-x-1 font-semibold">
-              <span>{auth?.user?.following.length > 0 ? auth?.user?.following : "0"}</span>
+              <span>{auth?.findUser?.following.length}</span>
               <span className="text-gray-500">Following</span>
             </div>
             <div className="flex items-center space-x-1 font-semibold">
-              <span>
-                {auth?.user?.followers.length > 0 ? auth?.user?.followers : "0"}
-              </span>
+              <span>{auth?.findUser?.followers.length}</span>
               <span className="text-gray-500">Followers</span>
             </div>
           </div>

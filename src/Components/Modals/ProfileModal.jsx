@@ -8,8 +8,9 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import profile from "../../assets/profile.svg";
 import { Avatar } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../../Store/Auth/Action";
+import { uploadToCloudinary } from "../../Utils/uploadToCloudinary";
 
 const style = {
   position: "absolute",
@@ -25,41 +26,46 @@ const style = {
 
 export default function ProfileModal({ open, handleClose }) {
   const [uploading, setUploading] = React.useState(false);
+  const [selectedProfileImage, setSelectedProfileImage] = React.useState("");
+  const [selectedBackgroundImage, setSelectedBackgroundImage] =
+    React.useState("");
+  const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
     console.log("submitted", values);
     dispatch(updateUserProfile(values));
-    actions.resetForm();
+    setSelectedProfileImage(null);
+    setSelectedBackgroundImage(null);
     handleClose();
   };
 
-  const handleBackgroundImageChange = (event) => {
-    console.log("uploading new bg image");
+  const handleBackgroundImageChange = async (event) => {
     setUploading(true);
     const { name } = event.target;
-    const file = event.target.files[0];
+    const file = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue(name, file);
+    setSelectedBackgroundImage(file);
     setUploading(false);
   };
 
-  const handleProfileImageChange = (event) => {
-    console.log("uploading new profile image");
+  const handleProfileImageChange = async (event) => {
     setUploading(true);
     const { name } = event.target;
-    const file = event.target.files[0];
+    const file = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue(name, file);
+    setSelectedProfileImage(file);
     setUploading(false);
   };
 
   const formik = useFormik({
     initialValues: {
-      fullName: "",
-      website: "",
-      location: "",
-      bio: "",
-      backgroundImage: "",
-      profileImage: "",
+      fullName: auth?.user?.fullName || "",
+      website: auth?.user?.website || "",
+      location: auth?.user?.location || "",
+      bio: auth?.user?.bio || "",
+      bannerImage: auth?.user?.bannerImage || "",
+      profileImage: auth?.user?.profileImage || "",
     },
     onSubmit: handleSubmit,
   });
@@ -89,13 +95,17 @@ export default function ProfileModal({ open, handleClose }) {
                   <div className="relative">
                     <img
                       className="w-full h-[12rem] object-cover object-center bg-no-repeat"
-                      src="https://cdn.pixabay.com/photo/2019/03/03/20/23/background-4032775_1280.png"
+                      src={
+                        selectedBackgroundImage ||
+                        auth?.user?.bannerImage ||
+                        "https://cdn.pixabay.com/photo/2019/03/03/20/23/background-4032775_1280.png"
+                      }
                       alt="background"
                     />
                     <input
                       type="file"
                       className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                      name="backgroundImage"
+                      name="bannerImage"
                       onChange={handleBackgroundImageChange}
                       accept="image/png, image/gif, image/jpeg, image/tiff, image/pdf"
                     />
@@ -104,7 +114,11 @@ export default function ProfileModal({ open, handleClose }) {
                 <div className="w-full transform -translate-y-24 rounded-full ml-5 h-[6rem]">
                   <div className="relative">
                     <Avatar
-                      src={profile}
+                      src={
+                        selectedProfileImage ||
+                        auth?.user?.profileImage ||
+                        profile
+                      }
                       sx={{
                         width: "10rem",
                         height: "10rem",
@@ -124,10 +138,13 @@ export default function ProfileModal({ open, handleClose }) {
               <div className="space-y-3">
                 <TextField
                   fullWidth
+                  inputProps={{ maxLength: 12 }}
                   id="fullName"
                   name="fullName"
                   label="Full Name"
-                  value={formik?.values?.fullName}
+                  defaultValue={
+                    auth?.user?.fullName || formik?.values?.fullName
+                  }
                   onChange={formik.handleChange}
                   error={
                     formik?.touched?.name && Boolean(formik?.errors?.fullName)
@@ -141,7 +158,7 @@ export default function ProfileModal({ open, handleClose }) {
                   id="bio"
                   name="bio"
                   label="Bio"
-                  value={formik?.values?.bio}
+                  defaultValue={auth?.user?.bio || formik?.values?.bio}
                   onChange={formik.handleChange}
                   error={formik?.touched?.bio && Boolean(formik?.errors?.bio)}
                   helperText={formik?.touched?.bio && formik?.errors?.bio}
@@ -151,7 +168,7 @@ export default function ProfileModal({ open, handleClose }) {
                   id="website"
                   name="website"
                   label="Website"
-                  value={formik?.values?.website}
+                  defaultValue={auth?.user?.website}
                   onChange={formik.handleChange}
                   error={
                     formik?.touched?.website && Boolean(formik?.errors?.website)
@@ -165,7 +182,9 @@ export default function ProfileModal({ open, handleClose }) {
                   id="location"
                   name="location"
                   label="Location"
-                  value={formik?.values?.location}
+                  defaultValue={
+                    auth?.user?.location || formik?.values?.location
+                  }
                   onChange={formik.handleChange}
                   error={
                     formik?.touched?.location &&

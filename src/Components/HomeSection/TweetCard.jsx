@@ -21,6 +21,7 @@ import {
   createReTweet,
   likeTweet,
   getAllTweets,
+  deleteTweet,
 } from "../../Store/Tweet/Action";
 
 const style = {
@@ -92,6 +93,8 @@ const TweetCard = ({ tweetData, displayComments }) => {
 
   const handleDelete = () => {
     console.log("deleted");
+    dispatch(deleteTweet(tweetData?.id));
+    setModalOpen(false);
     handleClose();
   };
 
@@ -107,7 +110,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
     setLike(!value);
   };
 
-  console.log("twet data in card: ", tweet)
+  // console.log("twet data in card: ", tweet)
 
   return (
     <React.Fragment>
@@ -148,7 +151,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
               </button>
               <button
                 class="bg-red-500 hover:bg-transparent px-5 ml-4 py-2 text-sm shadow-sm hover:shadow-lg font-medium tracking-wider border-2 border-red-500 hover:border-red-500 text-white hover:text-red-500 rounded-full transition ease-in duration-300"
-                onClick={() => setModalOpen(false)}
+                onClick={handleDelete}
               >
                 Confirm
               </button>
