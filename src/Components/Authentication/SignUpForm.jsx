@@ -119,6 +119,20 @@ function SignUpForm() {
             type="text"
             variant="outlined"
             size="large"
+            InputProps={{
+              style: {
+                borderRadius: "10px",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
+            }}
+            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
             defaultValue={formik?.values?.fullName}
             onChange={formik.handleChange}
             onSubmit={formik.onSubmit}
@@ -136,6 +150,20 @@ function SignUpForm() {
             type="email"
             variant="outlined"
             size="large"
+            InputProps={{
+              style: {
+                borderRadius: "10px",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+              },
+            }}
+            InputLabelProps={{
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
+            }}
+            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
             defaultValue={formik?.values?.email}
             onChange={formik.handleChange}
             onSubmit={formik.onSubmit}
@@ -153,6 +181,13 @@ function SignUpForm() {
             type={showPassword ? "text" : "password"}
             variant="outlined"
             size="large"
+            InputLabelProps={{
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
+            }}
+            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
             defaultValue={formik?.values?.password}
             onChange={formik.handleChange}
             // onSubmit={formik.onSubmit}
@@ -174,6 +209,11 @@ function SignUpForm() {
                   </IconButton>
                 </InputAdornment>
               ),
+              style: {
+                borderRadius: "10px",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+              },
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
@@ -188,6 +228,13 @@ function SignUpForm() {
             type={showConfirmPassword ? "text" : "password"}
             variant="outlined"
             size="large"
+            InputLabelProps={{
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
+            }}
+            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
             defaultValue={formik?.values?.confirmPassword}
             onChange={formik.handleChange}
             // onSubmit={formik.onSubmit}
@@ -209,6 +256,11 @@ function SignUpForm() {
                   </IconButton>
                 </InputAdornment>
               ),
+              style: {
+                borderRadius: "10px",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+              },
             }}
             error={
               formik.touched.confirmPassword &&
@@ -220,13 +272,18 @@ function SignUpForm() {
           />
         </Grid>
         <Grid item xs={4}>
-          <InputLabel>Date</InputLabel>
+          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Date</InputLabel>
           <Select
             fullWidth
             name="day"
             value={formik?.value?.dateOfBirth?.day}
             onChange={handleDateChange("day")}
             onBlur={formik.handleBlur}
+            sx={{
+              bgcolor:
+                localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" }
+            }}
           >
             {days.map((day) => (
               <MenuItem key={day} value={day}>
@@ -236,13 +293,17 @@ function SignUpForm() {
           </Select>
         </Grid>
         <Grid item xs={4}>
-          <InputLabel>Month</InputLabel>
+          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Month</InputLabel>
           <Select
             fullWidth
             name="month"
             value={formik?.value?.dateOfBirth?.month}
             onChange={handleDateChange("month")}
             onBlur={formik.handleBlur}
+            sx={{
+              bgcolor:
+                localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+            }}
           >
             {months.map((month) => (
               <MenuItem key={month.label} value={month.value}>
@@ -252,13 +313,17 @@ function SignUpForm() {
           </Select>
         </Grid>
         <Grid item xs={4}>
-          <InputLabel>Year</InputLabel>
+          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Year</InputLabel>
           <Select
             fullWidth
             name="year"
             value={formik?.value?.dateOfBirth?.year}
             onChange={handleDateChange("year")}
             onBlur={formik.handleBlur}
+            sx={{
+              bgcolor:
+                localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+            }}
           >
             {years.map((year) => (
               <MenuItem key={year} value={year}>

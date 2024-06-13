@@ -54,6 +54,16 @@ function SignInForm() {
           <TextField
             required
             fullWidth
+            InputProps={{
+              style: {
+                borderRadius: "10px",
+                backgroundColor: localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+              },
+            }}
+            InputLabelProps={{
+              style: { color: localStorage.getItem("theme") === "dark" ? "#fff" : "#000" },
+            }}
+            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
             id="email"
             label="Email Id"
             type="email"
@@ -77,7 +87,12 @@ function SignInForm() {
             size="large"
             defaultValue={formik?.values?.password}
             onChange={formik.handleChange}
-            // onSubmit={formik.onSubmit}
+            InputLabelProps={{
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
+            }}
             onBlur={formik.handleBlur}
             InputProps={{
               endAdornment: (
@@ -96,6 +111,11 @@ function SignInForm() {
                   </IconButton>
                 </InputAdornment>
               ),
+              style: {
+                borderRadius: "10px",
+                backgroundColor: localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                color: localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}

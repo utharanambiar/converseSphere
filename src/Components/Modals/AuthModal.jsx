@@ -39,7 +39,7 @@ export default function AuthModal({ open, handleClose }) {
       >
         <Box
           sx={style}
-          className="w-[80vw] md:w-[60vw] overflow-y-auto max-h-[90vh] hideScrollBar"
+          className="w-[80vw] md:w-[60vw] overflow-y-auto max-h-[90vh] hideScrollBar dark:bg-[#26282B] dark:text-gray-400"
         >
           <h1 className="text-center font-lato font-bold text-3xl pb-20">
             {location?.pathname === "/signup" ? "Create an account" : "Sign in to our platform"}

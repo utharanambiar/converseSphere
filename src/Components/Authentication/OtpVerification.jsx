@@ -89,8 +89,8 @@ export default function OtpVerification({ reset, isLoading }) {
     }
   }, [auth?.verified]);
   return (
-    <div className="flex justify-around wrap items-center h-screen shadow-all">
-      <div className="shadow-all w-full max-w-[80vw] lg:max-w-[70vw] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8">
+    <div className="flex justify-around wrap items-center h-screen shadow-all dark:shadow-[#21252c78] dark:bg-[#26282B]">
+      <div className="shadow-all dark:shadow-[#21252c78] w-full max-w-[80vw] lg:max-w-[70vw] p-4 bg-white border dark:bg-[#353941] border-gray-200 dark:border-[#353941] rounded-lg shadow sm:p-6 md:p-8">
       <h3 className="mb-4 text-3xl font-medium">Email verification</h3>
       <h5 className="mb-4 text-l font-medium text-gray-500 dark:text-gray-400">{`We have sent a code to your email ${auth?.user?.email}`}</h5>
         <div className="flex gap-2 relative justify-center items-center">

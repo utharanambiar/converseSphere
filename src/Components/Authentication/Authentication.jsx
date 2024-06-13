@@ -30,13 +30,13 @@ function Authentication() {
           />
         </Grid>
         <Grid
-          className="lg:pl-[4rem] rounded-tl-[100px] bg-white shadow-3xl flex flex-col flex-wrap items-center justify-around"
+          className="lg:pl-[4rem] rounded-tl-[100px] bg-white dark:bg-[#26282B] shadow-3xl flex flex-col flex-wrap items-center justify-around"
           lg={5}
           xs={12}
           item
         >
           <div className="pl-[2rem] md:pl-[0rem]">
-            <h1 className="font-bold text-7xl mt-10 font-lato">What's up?</h1>
+            <h1 className="font-bold text-7xl mt-10 font-lato text-gray-700 dark:text-gray-300">What's up?</h1>
             <h1 className="font-bold text-3xl py-12 lg:pt-12 lg:pb-8 font-lato">
               Join us now!
             </h1>
