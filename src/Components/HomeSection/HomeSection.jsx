@@ -12,10 +12,12 @@ import TweetCard from "./TweetCard";
 import { useDispatch, useSelector } from "react-redux";
 import { createTweet, getAllTweets } from "../../Store/Tweet/Action";
 import { uploadToCloudinary } from "../../Utils/uploadToCloudinary";
+import SearchIcon from "@mui/icons-material/Search";
 
 function HomeSection() {
   const [uploadImage, setUploadImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
+  const [search, setSearch] = useState(false);
   const { tweet } = useSelector((store) => store);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -26,7 +28,7 @@ function HomeSection() {
     console.log(values);
     actions.resetForm();
     dispatch(createTweet(values));
-    setSelectedImage(null)
+    setSelectedImage(null);
   };
 
   const handleSelectImage = async (event) => {
@@ -62,12 +64,66 @@ function HomeSection() {
 
   console.log("tweet", tweet);
 
+  const handleSearch = () => {
+    setSearch(true);
+    console.log("searched", search);
+  };
+
   return (
-    <div className="space-y-5 ml-5 mr-5">
-      <section>
-        <h1 className="py-5 text-xl font-bold opacity-90">ConverseSphere</h1>
+    <div className="space-y-5">
+      <section className="py-5 sticky top-0 md:pt-5 bg-white z-50 dark:lg:bg-[#353941] dark:bg-transparent border-[#353941] pl-10 pr-10 hidden md:block">
+        <span className="-translate-y-2 text-xl font-bold opacity-90">
+          ConverseSphere
+        </span>
+        <span className="absolute top-0 right-0 pl-3">
+          <form class="form relative">
+            <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
+              <svg
+                width="17"
+                height="16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-labelledby="search"
+                class="w-5 h-5 text-gray-700"
+              >
+                <path
+                  d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                  stroke="currentColor"
+                  stroke-width="1.333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </button>
+            <input
+              class="input rounded-full px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md"
+              placeholder="Search..."
+              required=""
+              type="text"
+            />
+            <button
+              type="reset"
+              class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5 text-gray-700"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </form>
+        </span>
       </section>
-      <section className={`pb-2 md:pb-10`}>
+      <section className={`pb-2 md:pb-10 pl-5 pr-5`}>
         <div className="flex space-x-5">
           <Avatar alt="username" src={profile} />
           <div className="w-full">
@@ -142,7 +198,7 @@ function HomeSection() {
           </div>
         </div>
       </section>
-      <section>
+      <section className="pl-5 pr-5">
         {tweet?.tweets?.map((item) => (
           <>
             <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />

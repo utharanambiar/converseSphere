@@ -16,7 +16,7 @@ import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "../Modals/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import {
   findTweetsById,
   getUsersTweet,
@@ -24,7 +24,7 @@ import {
 } from "../../Store/Tweet/Action";
 import { findUserById, followUser } from "../../Store/Auth/Action";
 
-function Profile({setShowSidebar}) {
+function Profile() {
   const [value, setValue] = React.useState("1");
   const [openProfileModal, setOpenProfileModal] = React.useState(false);
   const navigate = useNavigate();

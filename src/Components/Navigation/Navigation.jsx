@@ -71,7 +71,7 @@ function Navigation({authData}) {
       </div>
       <div className="block md:flex items-center justify-between fixed bottom-0 p-2">
         <div className="flex items-center space-x-3">
-          <Avatar alt={profile} />
+          <Avatar alt={profile} src={authData?.user?.profileImage || profile}/>
           <div>
             <span>
               {authData?.user?.fullName}
