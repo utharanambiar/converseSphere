@@ -10,6 +10,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../Store/Auth/Action";
+import toast from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -36,14 +37,13 @@ function SignInForm() {
     validationSchema,
     onSubmit: (values) => {
       console.log("sign in values", values);
-      dispatch(loginUser(values));
-      if (
-        Object.keys(formik.errors).length === 0 &&
-        !auth?.error &&
-        !auth?.loading
-      ) {
-        navigate("/verifyotp");
-      }
+      const res = dispatch(loginUser(values));
+      toast.promise(dispatch(loginUser(values)), {
+        loading: "Authenticating",
+        success: <b>Authenticated</b>,
+        error: <b>Please try again</b>,
+      });
+      res.then(() => navigate("/verifyotp"));
     },
   });
 
@@ -57,13 +57,22 @@ function SignInForm() {
             InputProps={{
               style: {
                 borderRadius: "10px",
-                backgroundColor: localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
               },
             }}
             InputLabelProps={{
-              style: { color: localStorage.getItem("theme") === "dark" ? "#fff" : "#000" },
+              style: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
+              },
             }}
-            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
+            sx={{
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
+            }}
             id="email"
             label="Email Id"
             type="email"
@@ -113,8 +122,10 @@ function SignInForm() {
               ),
               style: {
                 borderRadius: "10px",
-                backgroundColor: localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
-                color: localStorage.getItem("theme") === "dark" ? "white" : "#000",
+                backgroundColor:
+                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
               },
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}

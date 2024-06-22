@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { verifyOtp } from "../../Store/Auth/Action";
+import toast from "react-hot-toast";
 
 export default function OtpVerification({ reset, isLoading }) {
   const [code, setCode] = useState(""); // Refs to control each digit input element
@@ -80,19 +81,20 @@ export default function OtpVerification({ reset, isLoading }) {
 
   const handleSubmit = () => {
     const verifyOtpDetails = { email: auth?.user?.email, otp: code };
-    dispatch(verifyOtp(verifyOtpDetails));
+    const res = dispatch(verifyOtp(verifyOtpDetails));
+    toast.promise(res, {
+      loading: "Authenticating",
+      success: <b>OTP verified!</b>,
+      error: <b>{auth?.error || "Invalid OTP"}</b>,
+    });
+    res.then(() => navigate("/"));
   };
 
-  useEffect(() => {
-    if (auth?.verified && auth?.jwt) {
-      navigate("/");
-    }
-  }, [auth?.verified]);
   return (
     <div className="flex justify-around wrap items-center h-screen shadow-all dark:shadow-[#21252c78] dark:bg-[#26282B]">
       <div className="shadow-all dark:shadow-[#21252c78] w-full max-w-[80vw] lg:max-w-[70vw] p-4 bg-white border dark:bg-[#353941] border-gray-200 dark:border-[#353941] rounded-lg shadow sm:p-6 md:p-8">
-      <h3 className="mb-4 text-3xl font-medium">Email verification</h3>
-      <h5 className="mb-4 text-l font-medium text-gray-500 dark:text-gray-400">{`We have sent a code to your email ${auth?.user?.email}`}</h5>
+        <h3 className="mb-4 text-3xl font-medium">Email verification</h3>
+        <h5 className="mb-4 text-l font-medium text-gray-500 dark:text-gray-400">{`We have sent a code to your email ${auth?.user?.email}`}</h5>
         <div className="flex gap-2 relative justify-center items-center">
                {" "}
           {[0, 1, 2, 3, 4, 5].map((index) => (
@@ -119,7 +121,7 @@ export default function OtpVerification({ reset, isLoading }) {
           className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mt-7"
           onClick={handleSubmit}
         >
-          Verify 
+          Verify
         </button>
       </div>
     </div>

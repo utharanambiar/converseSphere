@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "./Store/store.js";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Toaster } from "react-hot-toast";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
@@ -16,6 +17,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <GoogleOAuthProvider>
           <CssBaseline />
+          <Toaster/>
           <App />
         </GoogleOAuthProvider>
       </Provider>

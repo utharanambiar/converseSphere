@@ -23,6 +23,9 @@ import {
   LIKE_TWEETS_SUCCESS,
   GET_ALL_REPLIES_BY_USER_REQUEST,
   GET_ALL_REPLIES_BY_USER_SUCCESS,
+  SEARCH_REQUEST,
+  SEARCH_SUCCESS,
+  SEARCH_FAILIURE,
 } from "./ActionType";
 
 const initialState = {
@@ -41,6 +44,7 @@ export const TweetReducer = (state = initialState, action) => {
     case RETWEET_REQUEST:
     case FIND_TWEETS_BY_ID_REQUEST:
     case GET_ALL_REPLIES_BY_USER_REQUEST:
+    case SEARCH_REQUEST:
       return {
         ...state,
         loading: true,
@@ -53,6 +57,7 @@ export const TweetReducer = (state = initialState, action) => {
     case LIKE_TWEETS_FAILIURE:
     case RETWEET_FAILIURE:
     case FIND_TWEETS_BY_ID_FAILIURE:
+    case SEARCH_FAILIURE:
       return {
         ...state,
         loading: false,
@@ -75,6 +80,15 @@ export const TweetReducer = (state = initialState, action) => {
         error: null,
         tweets: action?.payload,
       };
+
+    case SEARCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        searchTweets: action?.payload,
+      };
+
     case GET_ALL_REPLIES_BY_USER_SUCCESS:
       return {
         ...state,
@@ -129,7 +143,7 @@ export const TweetReducer = (state = initialState, action) => {
         loading: false,
         error: null,
         replyTweet: action?.payload?.replyTweet,
-        replyFor: action?.payload?.replyFor
+        replyFor: action?.payload?.replyFor,
       };
 
     default:

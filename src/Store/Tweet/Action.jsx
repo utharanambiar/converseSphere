@@ -16,6 +16,8 @@ import {
   REPLY_TO_TWEET_SUCCESS,
   RETWEET_FAILIURE,
   RETWEET_SUCCESS,
+  SEARCH_FAILIURE,
+  SEARCH_SUCCESS,
   TWEET_CREATE_FAILIURE,
   TWEET_CREATE_SUCCESS,
   TWEET_DELETE_FAILIURE,
@@ -81,7 +83,10 @@ export const createTweetReply = (replyTweetData) => async (dispatch) => {
   try {
     const { data } = await api.post(`/api/tweet/reply`, replyTweetData);
     console.log("created tweet reply:", data);
-    dispatch({ type: REPLY_TO_TWEET_SUCCESS, payload: {replyTweet: data, replyFor: data?.id} });
+    dispatch({
+      type: REPLY_TO_TWEET_SUCCESS,
+      payload: { replyTweet: data, replyFor: data?.id },
+    });
   } catch (e) {
     console.error(e);
     dispatch({ type: REPLY_TO_TWEET_FAILIURE, payload: e?.message });
@@ -129,5 +134,16 @@ export const getRepliesByUser = (userId) => async (dispatch) => {
   } catch (e) {
     console.error(e);
     dispatch({ type: GET_ALL_REPLIES_BY_USER_FAILIURE, payload: e?.message });
+  }
+};
+
+export const searchQuery = (query) => async (dispatch) => {
+  try {
+    const { data } = await api.get(`/api/search?query=${query}`);
+    console.log("search results", [data?.tweets, data?.users]);
+    dispatch({ type: SEARCH_SUCCESS, payload: [data?.tweets, data?.users] });
+  } catch (e) {
+    console.error(e);
+    dispatch({ type: SEARCH_FAILIURE, payload: e?.message });
   }
 };
