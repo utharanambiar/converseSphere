@@ -5,6 +5,7 @@ import {
   GET_ALL_REPLIES_BY_USER_FAILIURE,
   GET_ALL_REPLIES_BY_USER_SUCCESS,
   GET_ALL_TWEETS_FAILIURE,
+  GET_ALL_TWEETS_REQUEST,
   GET_ALL_TWEETS_SUCCESS,
   GET_TWEET_LIKED_BY_USER_FAILIURE,
   GET_TWEET_LIKED_BY_USER_SUCCESS,
@@ -25,13 +26,15 @@ import {
 } from "./ActionType";
 
 export const getAllTweets = () => async (dispatch) => {
+  dispatch({ type: GET_ALL_TWEETS_REQUEST, payload: true });
   try {
     const { data } = await api.get("/api/tweet/");
-    console.log("get all tweets:", data);
     dispatch({ type: GET_ALL_TWEETS_SUCCESS, payload: data });
   } catch (e) {
     console.error(e);
     dispatch({ type: GET_ALL_TWEETS_FAILIURE, payload: e?.message });
+  } finally {
+    dispatch({ type: GET_ALL_TWEETS_REQUEST, payload: false });
   }
 };
 

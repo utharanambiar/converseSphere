@@ -26,6 +26,7 @@ import {
   SEARCH_REQUEST,
   SEARCH_SUCCESS,
   SEARCH_FAILIURE,
+  GET_ALL_TWEETS_REQUEST,
 } from "./ActionType";
 
 const initialState = {
@@ -45,9 +46,10 @@ export const TweetReducer = (state = initialState, action) => {
     case FIND_TWEETS_BY_ID_REQUEST:
     case GET_ALL_REPLIES_BY_USER_REQUEST:
     case SEARCH_REQUEST:
+    case GET_ALL_TWEETS_REQUEST:
       return {
         ...state,
-        loading: true,
+        loading: action?.payload,
         error: null,
       };
 
@@ -76,7 +78,6 @@ export const TweetReducer = (state = initialState, action) => {
     case GET_USER_TWEETS_SUCCESS:
       return {
         ...state,
-        loading: false,
         error: null,
         tweets: action?.payload,
       };

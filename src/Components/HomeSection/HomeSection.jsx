@@ -123,7 +123,7 @@ function HomeSection() {
             <button
               type="reset"
               class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
-              onClick={()=>setSearch(false)}
+              onClick={() => setSearch(false)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -219,22 +219,44 @@ function HomeSection() {
           </div>
         </section>
       )}
-      <section className="pl-5 pr-5">
-        {!search &&
+      <section className="pl-5 pr-5 w-screen md:w-[55vw]">
+        {tweet?.loading && [1,1,1,1].map(()=>(
+          <div className="relative flex w-full animate-pulse gap-2 mb-5">
+            <div className="h-12 w-12 rounded-full bg-neutral-400/50"></div>
+            <div className="flex-1 mt-2">
+              <div className="flex">
+                <div className="mb-1 h-3 w-2/5 rounded-lg bg-neutral-400/50 text-lg mr-5"></div>
+                <div className="h-3 w-[30%] rounded-lg bg-neutral-400/50 text-sm"></div>
+              </div>
+              <div className="flex flex-col gap-2 mt-3">
+                <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+                <div className="bg-neutral-400/50 w-4/5 h-4 animate-pulse rounded-md"></div>
+                <div className="bg-neutral-400/50 w-full h-4 animate-pulse rounded-md"></div>
+                <div className="bg-neutral-400/50 w-2/4 h-4 animate-pulse rounded-md"></div>
+                <div className="bg-neutral-400/50 w-full h-64 animate-pulse rounded-md"></div>
+              </div>
+            </div>
+          </div>
+        ))}
+        {!tweet?.loading &&
+          !search &&
           tweet?.tweets?.map((item) => (
             <>
               <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
               <TweetCard tweetData={item} displayComments={true} />
             </>
           ))}
-        {search &&
+
+        {!tweet?.loading &&
+          search &&
           tweet?.searchTweets[0]?.map((item) => (
             <>
               <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
               <TweetCard tweetData={item} displayComments={true} />
             </>
           ))}
-        {search &&
+        {!tweet?.loading &&
+          search &&
           tweet?.searchTweets[1]?.map((tweetData) => (
             <>
               <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />

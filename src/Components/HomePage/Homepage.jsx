@@ -15,9 +15,6 @@ function Homepage() {
   const [showSidebar, setShowSidebar] = React.useState(false);
   const { auth } = useSelector((store) => store);
 
-
-  console.log("auth in homepage to check why not loading:", auth)
-
   return (
     <div
       className={`${
