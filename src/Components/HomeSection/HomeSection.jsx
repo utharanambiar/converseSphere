@@ -123,6 +123,7 @@ function HomeSection() {
             <button
               type="reset"
               class="absolute right-3 -translate-y-1/2 top-1/2 p-1"
+              onClick={()=>setSearch(false)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +145,7 @@ function HomeSection() {
       {!search && (
         <section className={`pb-2 md:pb-10 pl-5 pr-5`}>
           <div className="flex space-x-5">
-            <Avatar alt="username" src={profile} />
+            <Avatar alt="username" src={tweet?.user?.profileImage || profile} />
             <div className="w-full">
               <form onSubmit={formik.handleSubmit}>
                 <div
@@ -240,7 +241,7 @@ function HomeSection() {
               <div className="flex lg:space-x-5">
                 <Avatar
                   className="cursor-pointer"
-                  src={profile}
+                  src={tweetData?.profileImage || profile}
                   alt="username"
                   onClick={() => navigate(`/profile/${tweetData?.id}`)}
                 />

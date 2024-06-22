@@ -164,7 +164,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
           <div className="flex lg:space-x-5">
             <Avatar
               className="cursor-pointer"
-              src={profile}
+              src={tweetData?.user?.profileImage || profile}
               alt="username"
               onClick={() => navigate(`/profile/${tweetData?.user?.id}`)}
             />
