@@ -273,7 +273,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
                           onClick={() => handleLike(false)}
                         />
                       )}
-                      <p>{tweetData?.totalLikes}</p>
+                      <p>{tweetData?.totalLikes || tweetData?.like?.length}</p>
                     </div>
                     <div className="space-x-3 flex items-center text-gray-600">
                       <BarChartIcon

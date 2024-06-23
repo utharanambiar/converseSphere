@@ -6,6 +6,7 @@ import ListAltRoundedIcon from '@mui/icons-material/ListAltRounded';
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import PendingRoundedIcon from '@mui/icons-material/PendingRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
 export const navigationOptions =[
     {
@@ -49,8 +50,8 @@ export const navigationOptions =[
         path: '/profile'
     },
     {
-        title: "MORE",
-        icon: <PendingRoundedIcon/>,
-        path: '/more'
+        title: "SETTINGS",
+        icon: <SettingsRoundedIcon/>,
+        path: '/settings'
     },
 ]

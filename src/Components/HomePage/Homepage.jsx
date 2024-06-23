@@ -95,7 +95,7 @@ function Homepage() {
             <Route path="/" element={<HomeSection />} />
             <Route path="/profile/:id" element={<Profile />} />
             <Route path="/tweet/:id" element={<TweetDetails />} />
-            <Route path="/more" element={<More />} />
+            <Route path="/settings" element={<More />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

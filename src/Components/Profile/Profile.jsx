@@ -21,6 +21,7 @@ import {
   findTweetsById,
   getUsersTweet,
   getRepliesByUser,
+  getTweetsLikedByUser,
 } from "../../Store/Tweet/Action";
 import { findUserById, followUser } from "../../Store/Auth/Action";
 
@@ -64,6 +65,7 @@ function Profile() {
       dispatch(findUserById(id));
       dispatch(getUsersTweet(id));
       dispatch(getRepliesByUser(id));
+      dispatch(getTweetsLikedByUser(id));
     }
   }, [id]);
 
@@ -188,7 +190,10 @@ function Profile() {
                     return a?.id - b?.id;
                   })
                   ?.map((item) => (
-                    <TweetCard tweetData={item} displayComments={false} />
+                    <>
+                      <TweetCard tweetData={item} displayComments={false} />
+                      <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
+                    </>
                   ))}
               </TabPanel>
               <TabPanel value="2" sx={{ p: 1 }}>
@@ -198,15 +203,27 @@ function Profile() {
                         return b?.id - a?.id;
                       })
                       ?.map((item) => (
-                        <TweetCard tweetData={item} displayComments={false} />
+                        <>
+                          <TweetCard tweetData={item} displayComments={false} />
+                          <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
+                        </>
                       ))
                   : "No replies yet"}
               </TabPanel>
               {/* <TabPanel value="3">Media</TabPanel> */}
               <TabPanel value="4" sx={{ p: 1.5 }}>
-                {tweet?.tweet?.replyTweets?.map((item) => (
-                  <TweetCard tweetData={item} displayComments={false} />
-                ))}
+                {tweet?.likedTweet
+                  ? tweet?.likedTweet
+                      ?.sort((a, b) => {
+                        return b?.id - a?.id;
+                      })
+                      ?.map((item) => (
+                        <>
+                          <TweetCard tweetData={item} displayComments={false} />
+                          <hr class=" w-[80%] mx-auto h-px my-8 bg-gray-200 border-0" />
+                        </>
+                      ))
+                  : "No likes yet"}
               </TabPanel>
             </TabContext>
           </Box>
