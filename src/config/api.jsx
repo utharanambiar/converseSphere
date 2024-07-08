@@ -1,5 +1,5 @@
 import axios from "axios";
-const jwt = localStorage.getItem("AuthToken");
+const jwt = sessionStorage.getItem("AuthToken");
 
 export const API_BASE_URL = "http://localhost:8080";
 

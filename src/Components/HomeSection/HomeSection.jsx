@@ -9,7 +9,9 @@ import TagFacesIcon from "@mui/icons-material/TagFaces";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { useState, useEffect } from "react";
 import TweetCard from "./TweetCard";
+import Picker from "emoji-picker-react";
 import { useDispatch, useSelector } from "react-redux";
+import { useFormikContext } from "formik";
 import {
   createTweet,
   getAllTweets,
@@ -24,6 +26,8 @@ function HomeSection() {
   const [uploadImage, setUploadImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
   const [search, setSearch] = useState(false);
+  const [inputStr, setInputStr] = useState(false);
+  const [emojiPicker, setEmojiPicker] = useState(false);
   const { tweet } = useSelector((store) => store);
   const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
@@ -32,6 +36,19 @@ function HomeSection() {
   const validationSchema = Yup.object().shape({
     content: Yup.string().required("Tweet text is required"),
   });
+
+  console.log("authhh:", auth)
+
+  const openEmojiPicker = () => {
+    setEmojiPicker(!emojiPicker);
+  };
+
+  const onEmojiClick = (emojiObject, event) => {
+    setInputStr((prevInput) => prevInput + emojiObject.emoji);
+    formik.setFieldValue("content", formik.values.content + emojiObject?.emoji );
+    setEmojiPicker(false)
+  };
+
   const handleSubmit = (values, actions) => {
     actions.resetForm();
     const res = dispatch(createTweet(values));
@@ -44,6 +61,7 @@ function HomeSection() {
   };
 
   const handleSelectImage = async (event) => {
+    setEmojiPicker(false);
     setUploadImage(true);
     const imgURL = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue("img", imgURL);
@@ -52,6 +70,7 @@ function HomeSection() {
   };
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       content: "",
       img: "",
@@ -84,7 +103,7 @@ function HomeSection() {
     }
   };
 
-  console.log(tweet)
+  console.log(tweet);
 
   return (
     <div className="space-y-5">
@@ -169,6 +188,8 @@ function HomeSection() {
                     name="content"
                     placeholder={`${t("WHATS_HAPPENING")}`}
                     rows={2}
+                    value={inputStr}
+                    onChange={(e) => setInputStr(e.target.value)}
                     className="w-full text-slate-600 border-transparent bg-transparent hover:border-slate-200 appearance-none rounded px-3.5 py-2.5 outline-none"
                     {...formik.getFieldProps("content")}
                   />
@@ -202,8 +223,12 @@ function HomeSection() {
                       />
                     </label>
                     <FmdGoodIcon className="text-[#1d9bf0]" />
-                    <TagFacesIcon className="text-[#1d9bf0] cursor-pointer" />
+                    <TagFacesIcon
+                      className="text-[#1d9bf0] cursor-pointer"
+                      onClick={openEmojiPicker}
+                    />
                   </div>
+                  
                   <div>
                     <Button
                       sx={{
@@ -221,6 +246,7 @@ function HomeSection() {
                     </Button>
                   </div>
                 </div>
+                {emojiPicker && <Picker onEmojiClick={onEmojiClick} theme={localStorage.getItem("theme")} height="80vh" width="80%"/>}
               </form>
             </div>
           </div>
