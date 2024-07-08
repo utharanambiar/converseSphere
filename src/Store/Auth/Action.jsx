@@ -28,7 +28,7 @@ export const registerUser = (registerData) => async (dispatch) => {
       registerData
     );
     if (data?.jwt) {
-      localStorage.setItem("AuthToken", data?.jwt);
+      sessionStorage.setItem("AuthToken", data?.jwt);
     }
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data });
     console.log("user signed up:", data);
@@ -43,7 +43,7 @@ export const loginUser = (loginData) => async (dispatch) => {
   const { data } = await axios.post(`${API_BASE_URL}/auth/signin`, loginData);
   try {
     if (data?.jwt) {
-      localStorage.setItem("AuthToken", data?.jwt);
+      sessionStorage.setItem("AuthToken", data?.jwt);
     }
     dispatch({
       type: LOGIN_USER_SUCCESS,
@@ -75,7 +75,7 @@ export const getUserProfile = (jwt) => async (dispatch) => {
 };
 
 export const logoutUser = () => async (dispatch) => {
-  localStorage.removeItem("AuthToken");
+  sessionStorage.removeItem("AuthToken");
   dispatch({ type: LOGOUT, payload: null });
 };
 
@@ -88,7 +88,10 @@ export const verifyOtp = (verifyOtpData) => async (dispatch) => {
     console.log("user logged in:", data);
   } catch (error) {
     console.error(error);
-    dispatch({ type: OTP_VERIFICATION_FAILIURE, payload: error?.response?.data });
+    dispatch({
+      type: OTP_VERIFICATION_FAILIURE,
+      payload: error?.response?.data,
+    });
   }
 };
 

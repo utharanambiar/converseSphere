@@ -30,7 +30,6 @@ export default function GetVerified({ open, handleClose }) {
   };
 
   const handleBackgroundImageChange = (event) => {
-    console.log("uploading new bg image");
     setUploading(true);
     const { name } = event.target;
     const file = event.target.files[0];
@@ -39,7 +38,6 @@ export default function GetVerified({ open, handleClose }) {
   };
 
   const handleProfileImageChange = (event) => {
-    console.log("uploading new profile image");
     setUploading(true);
     const { name } = event.target;
     const file = event.target.files[0];

@@ -83,7 +83,6 @@ function SignUpForm() {
       const { day, month, year } = values.dateOfBirth;
       const dateOfBirth = `${year}-${month}-${day}`;
       values.dateOfBirth = dateOfBirth;
-      console.log("sign up values", values);
       dispatch(registerUser(values));
       if (
         Object.keys(formik.errors).length === 0 &&
@@ -123,7 +122,9 @@ function SignUpForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
               },
             }}
             InputLabelProps={{
@@ -132,7 +133,12 @@ function SignUpForm() {
                   localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
               },
             }}
-            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
+            sx={{
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
+            }}
             defaultValue={formik?.values?.fullName}
             onChange={formik.handleChange}
             onSubmit={formik.onSubmit}
@@ -154,7 +160,9 @@ function SignUpForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
               },
             }}
             InputLabelProps={{
@@ -163,7 +171,12 @@ function SignUpForm() {
                   localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
               },
             }}
-            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
+            sx={{
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
+            }}
             defaultValue={formik?.values?.email}
             onChange={formik.handleChange}
             onSubmit={formik.onSubmit}
@@ -187,7 +200,12 @@ function SignUpForm() {
                   localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
               },
             }}
-            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
+            sx={{
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
+            }}
             defaultValue={formik?.values?.password}
             onChange={formik.handleChange}
             // onSubmit={formik.onSubmit}
@@ -212,7 +230,9 @@ function SignUpForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
               },
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -234,7 +254,12 @@ function SignUpForm() {
                   localStorage.getItem("theme") === "dark" ? "#fff" : "#000",
               },
             }}
-            sx={{ input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" } }}
+            sx={{
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
+            }}
             defaultValue={formik?.values?.confirmPassword}
             onChange={formik.handleChange}
             // onSubmit={formik.onSubmit}
@@ -259,7 +284,9 @@ function SignUpForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
               },
             }}
             error={
@@ -272,7 +299,14 @@ function SignUpForm() {
           />
         </Grid>
         <Grid item xs={4}>
-          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Date</InputLabel>
+          <InputLabel
+            sx={{
+              color:
+                localStorage.getItem("theme") === "dark" ? "white" : "black",
+            }}
+          >
+            Date
+          </InputLabel>
           <Select
             fullWidth
             name="day"
@@ -282,7 +316,10 @@ function SignUpForm() {
             sx={{
               bgcolor:
                 localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
-                input: { color: localStorage.getItem("theme") === "dark" ? "white" : "#000" }
+              input: {
+                color:
+                  localStorage.getItem("theme") === "dark" ? "white" : "#000",
+              },
             }}
           >
             {days.map((day) => (
@@ -293,7 +330,14 @@ function SignUpForm() {
           </Select>
         </Grid>
         <Grid item xs={4}>
-          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Month</InputLabel>
+          <InputLabel
+            sx={{
+              color:
+                localStorage.getItem("theme") === "dark" ? "white" : "black",
+            }}
+          >
+            Month
+          </InputLabel>
           <Select
             fullWidth
             name="month"
@@ -313,7 +357,14 @@ function SignUpForm() {
           </Select>
         </Grid>
         <Grid item xs={4}>
-          <InputLabel sx={{ color: localStorage.getItem("theme") === "dark" ? "white" : "black" }}>Year</InputLabel>
+          <InputLabel
+            sx={{
+              color:
+                localStorage.getItem("theme") === "dark" ? "white" : "black",
+            }}
+          >
+            Year
+          </InputLabel>
           <Select
             fullWidth
             name="year"

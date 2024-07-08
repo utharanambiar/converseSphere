@@ -25,6 +25,7 @@ function HomeSection() {
   const [selectedImage, setSelectedImage] = useState("");
   const [search, setSearch] = useState(false);
   const { tweet } = useSelector((store) => store);
+  const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -32,7 +33,6 @@ function HomeSection() {
     content: Yup.string().required("Tweet text is required"),
   });
   const handleSubmit = (values, actions) => {
-    console.log(values);
     actions.resetForm();
     const res = dispatch(createTweet(values));
     setSelectedImage(null);
@@ -75,8 +75,6 @@ function HomeSection() {
     dispatch(getAllTweets());
   }, []);
 
-  console.log("tweet", tweet);
-
   const handleSearch = (e) => {
     if (e.target.value.length === 0) {
       setSearch(false);
@@ -84,8 +82,9 @@ function HomeSection() {
       setSearch(true);
       dispatch(searchQuery(e.target.value));
     }
-    console.log("searched", e.target.value, search);
   };
+
+  console.log(tweet)
 
   return (
     <div className="space-y-5">
@@ -146,7 +145,7 @@ function HomeSection() {
       {!search && (
         <section className={`pb-2 md:pb-10 pl-5 pr-5`}>
           <div className="flex space-x-5">
-            <Avatar alt="username" src={tweet?.user?.profileImage || profile} />
+            <Avatar alt="username" src={auth?.user?.profileImage || profile} />
             <div className="w-full">
               <form onSubmit={formik.handleSubmit}>
                 <div

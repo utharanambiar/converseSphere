@@ -11,30 +11,30 @@ import { useEffect } from "react";
 function App() {
   const { auth } = useSelector((store) => store);
   const navigate = useNavigate();
-  const jwt = localStorage.getItem("AuthToken");
+  const jwt = sessionStorage.getItem("AuthToken");
   const dispatch = useDispatch();
 
   let theme = localStorage.getItem("theme");
   useEffect(() => {
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme","dark")
+      localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove('dark')
-      localStorage.setItem("theme","light")
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   }, []);
 
   useEffect(() => {
-    if (jwt) {
-      dispatch(getUserProfile(jwt));
+    if (auth?.jwt) {
+      dispatch(getUserProfile(auth?.jwt));
       navigate("/");
     }
   }, []);
 
   useEffect(() => {
-    if (jwt && auth?.verified) {
-      dispatch(getUserProfile(jwt));
+    if (jwt && auth?.verified && auth?.jwt) {
+      dispatch(getUserProfile(auth?.jwt));
       navigate("/");
     }
   }, [auth?.jwt, jwt]);

@@ -20,7 +20,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   createReTweet,
   likeTweet,
-  getAllTweets,
   deleteTweet,
 } from "../../Store/Tweet/Action";
 
@@ -40,10 +39,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [like, setLike] = React.useState(tweetData?.liked || false);
-  const [loading, setLoading] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [reply, setReply] = useState(false);
   const { tweet } = useSelector((store) => store);
   const [openReplyModal, setOpenReplyModal] = React.useState(false);
   const handleOpenReplyModal = () => setOpenReplyModal(true);
@@ -109,8 +105,6 @@ const TweetCard = ({ tweetData, displayComments }) => {
     console.log(tweetData);
     setLike(!value);
   };
-
-  console.log("twet data in card: ", tweet)
 
   return (
     <React.Fragment>
@@ -303,6 +297,7 @@ const TweetCard = ({ tweetData, displayComments }) => {
                     item={tweetData}
                     openReplyModal={openReplyModal}
                     handleCloseReplyModal={handleCloseReplyModal}
+                    isTweet={false}
                   />
                 </section>
               </div>

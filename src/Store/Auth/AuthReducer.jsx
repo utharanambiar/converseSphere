@@ -20,7 +20,7 @@ const initialState = {
   user: null,
   loading: false,
   error: null,
-  jwt: localStorage.getItem("AuthToken") || null,
+  jwt: sessionStorage.getItem("AuthToken") || null,
   verified: false,
 };
 export const authReducer = (state = initialState, action) => {

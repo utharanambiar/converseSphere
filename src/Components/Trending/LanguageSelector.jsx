@@ -28,7 +28,9 @@ function LanguageSelector() {
         localStorage.setItem("lang", JSON.stringify(newValue));
         i18n.changeLanguage(newValue?.code);
       }}
-      renderInput={(params) => <TextField {...params} label="Language" size="small"/>}
+      renderInput={(params) => (
+        <TextField {...params} label="Language" size="small" />
+      )}
     />
   );
 }

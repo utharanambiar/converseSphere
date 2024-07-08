@@ -11,13 +11,17 @@ import { useDispatch, useSelector } from "react-redux";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import IconButton from "@mui/material/IconButton";
 import { logoutUser, getUserProfile } from "../../Store/Auth/Action";
+import CreateModal from '../Modals/CreateModal'
 
-function Navigation({authData}) {
+function Navigation({ authData }) {
   const { t } = useTranslation();
   const [selected, setSelected] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const jwt = localStorage.getItem("AuthToken");
+  const jwt = sessionStorage.getItem("AuthToken");
+  const [openCreateModal, setOpenCreateModal] = React.useState(false);
+  const handleOpenCreateModal = () => setOpenCreateModal(true);
+  const handleCloseCreateModal = () => setOpenCreateModal(false);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -32,7 +36,11 @@ function Navigation({authData}) {
       <div className="h-[80vh] sticky top-0 hideScrollBar overflow-y-scroll overflow-x-hidden md:p-3 dark:bg-[#353941]">
         <div>
           <div className="py-3 cursor-pointer">
-            <img className="mix-blend-multiply" src={logo} onClick={() => navigate("/")} />
+            <img
+              className="mix-blend-multiply"
+              src={logo}
+              onClick={() => navigate("/")}
+            />
           </div>
           <div>
             {navigationOptions.map((item, index) => (
@@ -46,12 +54,20 @@ function Navigation({authData}) {
                   setSelected(index);
                 }}
               >
-                <span className={`ml-2 font-lato ${
-                  selected === index ? `text-blue-600` : ``
-                }`}>{item?.icon}</span>
-                <p className={`text-l items-center ${
-                  selected === index ? `text-blue-600` : ``
-                }`}>{t(item?.title)}</p>
+                <span
+                  className={`ml-2 font-lato ${
+                    selected === index ? `text-blue-600` : ``
+                  }`}
+                >
+                  {item?.icon}
+                </span>
+                <p
+                  className={`text-l items-center ${
+                    selected === index ? `text-blue-600` : ``
+                  }`}
+                >
+                  {t(item?.title)}
+                </p>
               </div>
             ))}
             <div className="pt-4 pb-4 ml-2">
@@ -63,7 +79,12 @@ function Navigation({authData}) {
                 <p className="block z-10">
                   <EditRoundedIcon />
                 </p>
-                <p class="hidden lg:block z-10 ml-3">Tweet</p>
+                <p
+                  class="hidden lg:block z-10 ml-3"
+                  onClick={handleOpenCreateModal}
+                >
+                  Tweet
+                </p>
               </button>
             </div>
           </div>
@@ -71,7 +92,7 @@ function Navigation({authData}) {
       </div>
       <div className="block md:flex items-center justify-between fixed bottom-0 p-2">
         <div className="flex items-center space-x-3">
-          <Avatar alt={profile} src={authData?.user?.profileImage || profile}/>
+          <Avatar alt={profile} src={authData?.user?.profileImage || profile} />
           <div>
             <span>
               {authData?.user?.fullName}
@@ -89,6 +110,14 @@ function Navigation({authData}) {
             <LogoutRoundedIcon onClick={handleLogout} />
           </IconButton>
         </div>
+        <section>
+          <CreateModal
+            //item={tweetData}
+            openCreateModal={openCreateModal}
+            handleCloseCreateModal={handleCloseCreateModal}
+            //isTweet={false}
+          />
+        </section>
       </div>
     </>
   );

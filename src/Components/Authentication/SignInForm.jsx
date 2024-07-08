@@ -36,7 +36,6 @@ function SignInForm() {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log("sign in values", values);
       const res = dispatch(loginUser(values));
       toast.promise(dispatch(loginUser(values)), {
         loading: "Authenticating",
@@ -58,7 +57,9 @@ function SignInForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
               },
             }}
             InputLabelProps={{
@@ -123,7 +124,9 @@ function SignInForm() {
               style: {
                 borderRadius: "10px",
                 backgroundColor:
-                  localStorage.getItem("theme") === "dark" ? "#353941" : "#fff",
+                  localStorage.getItem("theme") === "dark"
+                    ? "#353941"
+                    : "#fff",
                 color:
                   localStorage.getItem("theme") === "dark" ? "white" : "#000",
               },

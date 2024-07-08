@@ -13,6 +13,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import { useDispatch, useSelector } from "react-redux";
+import { createTweet } from "../../Store/Tweet/Action";
 import toast from "react-hot-toast";
 import { uploadToCloudinary } from "../../Utils/uploadToCloudinary";
 
@@ -29,7 +30,7 @@ const style = {
   padding: 2,
 };
 
-function ReplyModal({ openReplyModal, handleCloseReplyModal, item}) {
+function CreateModal({ openCreateModal, handleCloseCreateModal }) {
   const navigate = useNavigate();
   const [uploadImage, setUploadImage] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
@@ -40,37 +41,38 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal, item}) {
     content: Yup.string().required("Tweet text is required"),
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, actions) => {
+    actions.resetForm();
     const res = dispatch(createTweet(values));
+    setSelectedImage(null);
     toast.promise(res, {
-      loading: `Saving reply ...`,
-      success: "Reply saved!",
+      loading: "Saving tweet...",
+      success: <b>Tweet saved!</b>,
       error: <b>Please try again later</b>,
     });
-    handleCloseReplyModal();
+    handleCloseCreateModal();
   };
 
-  const handleSelectImage = async (event) => {
+  const handleSelectImage = async(event) => {
     setUploadImage(true);
     const imgURL = await uploadToCloudinary(event.target.files[0]);
     formik.setFieldValue("img", imgURL);
     setSelectedImage(imgURL);
     setUploadImage(false);
   };
-
   const formik = useFormik({
     initialValues: {
       content: "",
       img: "",
-      tweetId: item?.id,
+      isTweet: true,
     },
     onSubmit: handleSubmit,
     validationSchema,
   });
   return (
     <Modal
-      open={openReplyModal}
-      onClose={handleCloseReplyModal}
+      open={openCreateModal}
+      onClose={handleCloseCreateModal}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -136,7 +138,7 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal, item}) {
                     rows={3}
                     onInput="this.parentNode.dataset.clonedVal = this.value"
                   />
-                  <div>
+                   <div>
                     {uploadImage && (
                       <div class="flex-col gap-4 w-full flex items-center justify-center">
                         <div class="w-10 h-10 md:w-20 md:h-20 border-8 text-blue-400 text-4xl animate-spin border-gray-300 flex items-center justify-center border-t-blue-400 rounded-full">
@@ -193,4 +195,4 @@ function ReplyModal({ openReplyModal, handleCloseReplyModal, item}) {
   );
 }
 
-export default ReplyModal;
+export default CreateModal;

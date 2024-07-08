@@ -36,11 +36,11 @@ function Profile() {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    if (newValue == 4) {
-      console.log("likes");
-    } else if (newValue == 1) {
-      console.log("users tweet");
-    }
+    // if (newValue == 4) {
+    //   console.log("likes");
+    // } else if (newValue == 1) {
+    //   console.log("users tweet");
+    // }
   };
 
   const handleClose = () => {

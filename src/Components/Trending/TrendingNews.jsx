@@ -9,14 +9,10 @@ import moon from "../../assets/moon.svg";
 import GetVerified from "../Modals/GetVerifiedModal";
 
 function TrendingNews() {
-  const [theme, setTheme] = React.useState(false);
   const [openVerifiedModal, setOpenVerifiedModal] = React.useState(false);
   const handleOpenVerifiedModal = () => setOpenVerifiedModal(true);
   const handleCloseVerifiedModal = () => setOpenVerifiedModal(false);
-  const handleTheme = () => {
-    setTheme(!theme);
-    console.log("changed theme", theme);
-  };
+
   return (
     <>
       <div className="py-5 ml-3 mr-3">
