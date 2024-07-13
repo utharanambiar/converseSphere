@@ -7,6 +7,7 @@ function LanguageSelector() {
   const languages = [
     { label: "English", code: "en" },
     { label: "French", code: "fr" },
+    { label: "German", code: "de" },
   ];
   const [value, setValue] = React.useState(
     localStorage.getItem("lang") !== undefined

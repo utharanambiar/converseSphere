@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import { Button } from "@mui/material";
-import MoreHoriz from "@mui/icons-material/MoreHoriz";
+import { useTranslation } from "react-i18next";
 import sun from "../../assets/sun.svg";
 import moon from "../../assets/moon.svg";
 import LanguageSelector from "../Trending/LanguageSelector";
 
 function More() {
   let tempTheme = localStorage.getItem("theme");
+  const { t } = useTranslation();
   const [theme, setTheme] = React.useState(
     tempTheme ? "light" : "dark" || "light"
   );
@@ -52,7 +51,7 @@ function More() {
           </label>
         </div>
         <div className="flex justify-center items-center py-3">
-          <p>Change language:</p>
+          <p>{t("CHANGE_LANGUAGE")}</p>
           <LanguageSelector />
         </div>
       </div>

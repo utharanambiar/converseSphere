@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import verified from "../../assets/verified.svg";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { verifiedModalData } from "../Data/VerifiedModalData";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -22,27 +23,11 @@ const style = {
 };
 
 export default function GetVerified({ open, handleClose }) {
-  const [uploading, setUploading] = React.useState(false);
   const [plan, setPlan] = React.useState("Annually");
+  const { t } = useTranslation();
 
   const handleSubmit = (values) => {
     console.log("submitted", values);
-  };
-
-  const handleBackgroundImageChange = (event) => {
-    setUploading(true);
-    const { name } = event.target;
-    const file = event.target.files[0];
-    formik.setFieldValue(name, file);
-    setUploading(false);
-  };
-
-  const handleProfileImageChange = (event) => {
-    setUploading(true);
-    const { name } = event.target;
-    const file = event.target.files[0];
-    formik.setFieldValue(name, file);
-    setUploading(false);
   };
 
   const formik = useFormik({
@@ -74,10 +59,7 @@ export default function GetVerified({ open, handleClose }) {
           <div className="flex justify-center py-5 hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
             <div className="w-[80%] space-y-10">
               <div className="p-5 rounded-md flex justify-between shadow-lg">
-                <h1 className="text-xl pr-5">
-                  Users with verified phone numbers will get verified status on
-                  their profiles, once approved.
-                </h1>
+                <h1 className="text-xl pr-5">{t("GET_VERIFIED_TEXT")}</h1>
                 <img src={verified} className="w-24 h-24" />
               </div>
               <div
@@ -92,7 +74,7 @@ export default function GetVerified({ open, handleClose }) {
                       plan === "Annually" ? "text-black" : "text-gray-400"
                     }`}
                   >
-                    Annually
+                    {t("ANNUALLY")}
                   </span>
                   <span className="text-green-500 text-sm ml-5">Save 12%</span>
                 </div>
@@ -109,7 +91,7 @@ export default function GetVerified({ open, handleClose }) {
                       plan === "Monthly" ? "text-black" : "text-gray-400"
                     }`}
                   >
-                    Monthly
+                    {t("MONTHLY")}
                   </span>
                 </div>
               </div>

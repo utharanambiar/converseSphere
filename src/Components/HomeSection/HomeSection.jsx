@@ -37,7 +37,7 @@ function HomeSection() {
     content: Yup.string().required("Tweet text is required"),
   });
 
-  console.log("authhh:", auth)
+  console.log("authhh:", auth);
 
   const openEmojiPicker = () => {
     setEmojiPicker(!emojiPicker);
@@ -45,8 +45,8 @@ function HomeSection() {
 
   const onEmojiClick = (emojiObject, event) => {
     setInputStr((prevInput) => prevInput + emojiObject.emoji);
-    formik.setFieldValue("content", formik.values.content + emojiObject?.emoji );
-    setEmojiPicker(false)
+    formik.setFieldValue("content", formik.values.content + emojiObject?.emoji);
+    setEmojiPicker(false);
   };
 
   const handleSubmit = (values, actions) => {
@@ -228,7 +228,7 @@ function HomeSection() {
                       onClick={openEmojiPicker}
                     />
                   </div>
-                  
+
                   <div>
                     <Button
                       sx={{
@@ -246,7 +246,14 @@ function HomeSection() {
                     </Button>
                   </div>
                 </div>
-                {emojiPicker && <Picker onEmojiClick={onEmojiClick} theme={localStorage.getItem("theme")} height="80vh" width="80%"/>}
+                {emojiPicker && (
+                  <Picker
+                    onEmojiClick={onEmojiClick}
+                    theme={localStorage.getItem("theme")}
+                    height="80vh"
+                    width="80%"
+                  />
+                )}
               </form>
             </div>
           </div>
@@ -345,7 +352,7 @@ function HomeSection() {
             </>
           ))}
         <div className="flex justify-around mb-6 text-gray-400 font-lato font-light">
-          You have reached the end!
+          {t("REACHED_END")}
         </div>
       </section>
     </div>

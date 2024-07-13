@@ -11,6 +11,7 @@ import { Avatar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../../Store/Auth/Action";
 import { uploadToCloudinary } from "../../Utils/uploadToCloudinary";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -31,6 +32,7 @@ export default function ProfileModal({ open, handleClose }) {
     React.useState("");
   const { auth } = useSelector((store) => store);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleSubmit = (values, actions) => {
     console.log("submitted", values);
@@ -87,10 +89,10 @@ export default function ProfileModal({ open, handleClose }) {
               <div className="flex items-center space-x-3">
                 <IconButton onClick={handleClose} aria-label="close">
                   <CloseIcon />
-                  <p className="text-sm">Edit profile</p>
+                  <p className="text-sm">{t("EDIT_PROFILE")}</p>
                 </IconButton>
               </div>
-              <Button type="submit">Save</Button>
+              <Button type="submit">{t("SAVE")}</Button>
             </div>
             <div className="hideScrollBar overflow-y-scroll overflow-x-hidden h-[80vh]">
               <React.Fragment>
@@ -201,11 +203,11 @@ export default function ProfileModal({ open, handleClose }) {
                     formik?.touched?.location && formik?.errors?.location
                   }
                 />
-                <div className="my-2">
+                {/* <div className="my-2">
                   <p className="text-lg">Date of Birth . Edit</p>
                   <p className="text-2xl">May 6, 2000</p>
                 </div>
-                <p className="py-3 text-lg">Edit Profession</p>
+                <p className="py-3 text-lg">Edit Profession</p> */}
               </div>
             </div>
           </form>

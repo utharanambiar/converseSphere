@@ -16,9 +16,8 @@ import { Box } from "@mui/material";
 import TweetCard from "../HomeSection/TweetCard";
 import ProfileModal from "../Modals/ProfileModal";
 import { useDispatch, useSelector } from "react-redux";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import { useTranslation } from "react-i18next";
 import {
-  findTweetsById,
   getUsersTweet,
   getRepliesByUser,
   getTweetsLikedByUser,
@@ -33,6 +32,7 @@ function Profile() {
   const { id } = useParams();
   const { tweet } = useSelector((store) => store);
   const { auth } = useSelector((store) => store);
+  const { t } = useTranslation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -76,9 +76,6 @@ function Profile() {
       <section
         className={`z-50 flex items-center sticky top-0 bg-opacity-95 bg-white dark:bg-[#353941]`}
       >
-        {/* <div className="cursor-pointer sticky top-0 w-full bg-white lg:hidden lg:invisible dark:bg-[#353941]">
-          <MenuRoundedIcon onClick={() => setShowSidebar(true)} fontSize="medium"/>
-        </div> */}
         <KeyboardBackspaceIcon
           className="cursor-pointer"
           onClick={handleBack}
@@ -117,7 +114,7 @@ function Profile() {
                 sx={{ borderRadius: "20px" }}
                 onClick={handleOpenProfileModal}
               >
-                Edit Profile
+                {t("EDIT_PROFILE")}
               </Button>
             ) : (
               <Button
@@ -162,11 +159,11 @@ function Profile() {
             <div className="flex items-start space-x-5">
               <div className="flex items-center space-x-1 font-semibold">
                 <span>{auth?.findUser?.following.length}</span>
-                <span className="text-gray-500">Following</span>
+                <span className="text-gray-500">{t("FOLLOWING")}</span>
               </div>
               <div className="flex items-center space-x-1 font-semibold">
                 <span>{auth?.findUser?.followers.length}</span>
-                <span className="text-gray-500">Followers</span>
+                <span className="text-gray-500">{t("FOLLOWERS")}</span>
               </div>
             </div>
           </div>
