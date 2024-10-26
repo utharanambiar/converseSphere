@@ -79,7 +79,7 @@ Start the server
 
 ## Demo
 
-You can use dummy credentials if you don't want to create a new account!\
+You can use dummy credentials if you don't want to create a new account!
 
 **Username:** dummyaccount@example.com \
 **Password:** dummyaccount@123\
